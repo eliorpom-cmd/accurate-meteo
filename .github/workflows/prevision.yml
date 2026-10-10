@@ -1,0 +1,65 @@
+# Every 15 minutes: fetch the live forecasts of every weather model, apply the frozen models (modeles/*.joblib)
+# and publish prevision.json on the `prevision` branch (a single commit, overwritten each time).
+name: Prévision
+
+on:
+  schedule:
+    # Every 15 minutes, off the round minutes. GitHub delays or drops scheduled runs when busy (2 runs out of 13
+    # on the night of 9-10/10/2026): a Cloudflare Worker (horloge/) also triggers it every 15 minutes, this is the backup
+    - cron: '4,19,34,49 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prevision
+  cancel-in-progress: false
+
+jobs:
+  prevision:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'   # same as training: the frozen models are pickled
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - run: python prevoir.py out/prevision.json
+
+      - name: Publish on the prevision branch
+        run: |
+          cd out
+          git init -q -b prevision
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add prevision.json  # the journal/ folder goes to its own branch below
+          git commit -q -m "Prévision du $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" prevision
+
+      # One small file per hour on the `journal` branch (never rewritten: the first run of each hour is kept): live forecasts kept to measure
+      # the true 2-hour skill later against Météo-France observations
+      - name: Record on the journal branch
+        run: |
+          url="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          if git ls-remote --exit-code --heads "$url" journal >/dev/null; then
+            git clone -q --depth 1 --branch journal "$url" journal-repo
+          else
+            git init -q -b journal journal-repo
+          fi
+          mkdir -p journal-repo/journal
+          for f in out/journal/*.json; do   # keep the file already recorded for this hour (cp -n exit codes vary)
+            [ -e "journal-repo/journal/$(basename "$f")" ] || cp "$f" journal-repo/journal/
+          done
+          cd journal-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add journal
+          git diff --cached --quiet && exit 0   # this hour is already recorded
+          git commit -q -m "Journal $(date -u +%Y-%m-%dT%HZ)"
+          git push -q "$url" journal

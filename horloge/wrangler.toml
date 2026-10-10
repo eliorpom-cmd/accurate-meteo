@@ -1,0 +1,8 @@
+# Deploy: cd horloge && wrangler deploy && wrangler secret put GITHUB_TOKEN
+name = "accurate-meteo-horloge"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+workers_dev = false   # no public URL: the worker only runs on its schedule
+
+[triggers]
+crons = ["*/15 * * * *"]
