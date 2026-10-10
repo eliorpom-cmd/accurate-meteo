@@ -7,7 +7,7 @@ Usage: python3 vignette.py [prevision.json] [og.png]
 """
 import json, math, os, sys
 from datetime import date, datetime
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageChops, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 W, H, K = 1200, 630, 2                       # drawn at 2× then reduced: smooth edges
@@ -15,7 +15,6 @@ BG, TILE, INK, DIM = '#f1f1f3', '#ffffff', '#121316', '#6e7178'
 # same skies as the site: a gradient per state (top, bottom), white text on it
 SKY = {'soleil': ('#2f86f0', '#1652c8'), 'mitigé': ('#5b87c4', '#30589c'), 'couvert': ('#7d889a', '#4f5a6b'),
        'pluie': ('#4a5c7c', '#26334c'), 'nuit': ('#1c2860', '#0a102c')}
-SUN, CLOUD, CLOUD2, DROP = '#ffb800', '#8f9bab', '#bcc5d1', '#cfe1ff'
 BRAND = '#1347c2'
 MOIS_COURTS = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 JOURS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
@@ -27,21 +26,6 @@ def font(name, size, axes):
     f = ImageFont.truetype(os.path.join(ROOT, 'polices', name), size * K)
     f.set_variation_by_axes(axes)
     return f
-
-
-def sun(d, cx, cy, r):
-    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=SUN)
-    for i in range(8):
-        a = i * math.pi / 4
-        d.line([cx + (r * 1.35) * math.cos(a), cy + (r * 1.35) * math.sin(a),
-                cx + (r * 1.75) * math.cos(a), cy + (r * 1.75) * math.sin(a)], fill=SUN, width=max(2, int(r * .28)))
-
-
-def cloud(d, cx, cy, s, col):
-    """Cloud of width ≈ 2.2 s centred on (cx, cy): flat base, two bumps."""
-    d.rounded_rectangle([cx - 1.1 * s, cy - .1 * s, cx + 1.1 * s, cy + .55 * s], radius=.33 * s, fill=col)
-    d.ellipse([cx - .85 * s, cy - .55 * s, cx - .05 * s, cy + .25 * s], fill=col)
-    d.ellipse([cx - .35 * s, cy - .85 * s, cx + .75 * s, cy + .25 * s], fill=col)
 
 
 def hexa(c):
@@ -74,24 +58,87 @@ def badge(im, x, y, size):
     im.paste(tile, (int(x), int(y)), mask)
 
 
-def icon(d, cond, cx, cy, s):
+# ---- weather symbols, same drawing as the site (filled, Apple Weather manner), on a 48-unit grid ----
+# cloud = three circles on a flat base; shapes behind are cut by the front one grown by a gap
+CLOUD = [(13.5, 29, 6), (24.5, 23, 9.8), (35, 28, 7)]
+SUNC, RAINC = '#ffcc00', '#7cc4ff'
+
+
+class Sym:
+    """Draws one icon of `size` px whose top-left corner is (x0, y0): every shape is a mask, colours at the end."""
+    def __init__(self, size):
+        self.n, self.u = int(size), size / 48
+
+    def mask(self):
+        return Image.new('L', (self.n, self.n), 0)
+
+    def cloud(self, dx=0, dy=0, k=1, grow=0):
+        m = self.mask(); d = ImageDraw.Draw(m); u = self.u
+        for cx, cy, r in CLOUD:
+            x, y, rr = (dx + k * cx) * u, (dy + k * cy) * u, (k * r + grow) * u
+            d.ellipse([x - rr, y - rr, x + rr, y + rr], fill=255)
+        d.rectangle([(dx + k * 13.5) * u, (dy + k * 28) * u, (dx + k * 35) * u, (dy + k * 35 + grow) * u], fill=255)
+        return m
+
+    def sun(self, x, y, r):
+        m = self.mask(); d = ImageDraw.Draw(m); u = self.u
+        d.ellipse([(x - r) * u, (y - r) * u, (x + r) * u, (y + r) * u], fill=255)
+        for i in range(8):
+            t = i * math.pi / 4
+            self.stroke(d, x + (r + 3.4) * math.cos(t), y + (r + 3.4) * math.sin(t), x + (r + 7) * math.cos(t), y + (r + 7) * math.sin(t), 2.8)
+        return m
+
+    def moon(self, dx=0, dy=0, k=1):
+        m = self.mask(); d = ImageDraw.Draw(m); u = self.u
+        a, b = (27.06, 22, 12.5), (32.8, 18.15, 10.42)   # crescent = disc a minus disc b (the site's path)
+        d.ellipse([(dx + k * (a[0] - a[2])) * u, (dy + k * (a[1] - a[2])) * u, (dx + k * (a[0] + a[2])) * u, (dy + k * (a[1] + a[2])) * u], fill=255)
+        d.ellipse([(dx + k * (b[0] - b[2])) * u, (dy + k * (b[1] - b[2])) * u, (dx + k * (b[0] + b[2])) * u, (dy + k * (b[1] + b[2])) * u], fill=0)
+        return m
+
+    def star(self, x, y, r):
+        m = self.mask(); u = self.u
+        pts = []
+        for i in range(16):   # four-point sparkle: long tips, pinched waist
+            t = i * math.pi / 8; rr = r if i % 4 == 0 else r * (.32 if i % 2 else .45)
+            pts.append(((x + rr * math.cos(t)) * u, (y + rr * math.sin(t)) * u))
+        ImageDraw.Draw(m).polygon(pts, fill=255)
+        return m
+
+    def rain(self, xs=(17, 24, 31), y=38):
+        m = self.mask(); d = ImageDraw.Draw(m)
+        for x in xs:
+            self.stroke(d, x, y, x - 2.4, y + 6, 3)
+        return m
+
+    def stroke(self, d, x1, y1, x2, y2, w):
+        u = self.u
+        d.line([x1 * u, y1 * u, x2 * u, y2 * u], fill=255, width=max(1, round(w * u)))
+        for x, y in ((x1, y1), (x2, y2)):   # round caps
+            d.ellipse([(x - w / 2) * u, (y - w / 2) * u, (x + w / 2) * u, (y + w / 2) * u], fill=255)
+
+    @staticmethod
+    def cut(back, front):
+        return ImageChops.subtract(back, front)
+
+
+def icon(layer, cond, cx, cy, s):
+    """Symbol of about s px centred on (cx, cy), drawn onto `layer` (white cloud, light rain: they sit on a sky)."""
+    S = Sym(s * 1.65)
+    parts = []   # (mask, colour), painted in order
+    c = lambda *a, **k: S.cloud(*a, **k)
     if cond == 'soleil':
-        sun(d, cx, cy, .42 * s)
+        parts = [(S.sun(24, 24, 9), SUNC)]
     elif cond == 'mitigé':
-        sun(d, cx + .35 * s, cy - .3 * s, .3 * s)
-        cloud(d, cx - .1 * s, cy + .15 * s, .5 * s, CLOUD)
+        parts = [(Sym.cut(S.sun(31, 17, 7), c(-3, 7, .95, 2.6)), SUNC), (c(-3, 7, .95), '#ffffff')]
     elif cond == 'couvert':
-        cloud(d, cx + .3 * s, cy - .2 * s, .38 * s, CLOUD2)
-        cloud(d, cx - .1 * s, cy + .12 * s, .5 * s, CLOUD)
+        parts = [(Sym.cut(c(9, -3, .72), c(-3, 6, 1, 2.6)), '#c9d3e3'), (c(-3, 6), '#ffffff')]
     elif cond == 'pluie':
-        cloud(d, cx, cy - .1 * s, .5 * s, CLOUD)
-        for dx in (-.3, 0, .3):
-            x = cx + dx * s
-            d.line([x, cy + .38 * s, x - .1 * s, cy + .62 * s], fill=DROP, width=max(2, int(.08 * s)))
+        parts = [(c(0, -4), '#ffffff'), (Sym.cut(S.rain(), c(0, -4, 1, 1.6)), RAINC)]
     else:   # nuit
-        r = .38 * s
-        d.ellipse([cx - r, cy - r, cx + r, cy + r], fill='#7b8494')
-        d.ellipse([cx - r + .32 * s, cy - r - .1 * s, cx + r + .32 * s, cy + r - .1 * s], fill='#131c46')
+        parts = [(S.moon(-2, 0), '#ffffff'), (S.star(36, 12, 3.2), SUNC), (S.star(39, 22, 2), SUNC)]
+    x0, y0 = int(cx - S.n / 2), int(cy - S.n / 2)
+    for m, col in parts:
+        layer.paste(Image.new('RGB', m.size, col), (x0, y0), m)
 
 
 def draw(prev, out_path):
@@ -131,7 +178,7 @@ def draw(prev, out_path):
             y = py0 + k * hh
             gradient(ld, [x + pad, y, x + tw - pad, y + hh], *SKY.get(h['condition'], SKY['couvert']))
             # icon in the upper part, temperature below with clear air between them (rays used to touch it)
-            icon(ld, h['condition'], x + tw / 2, y + hh * .37, 40 * K)
+            icon(layer, h['condition'], x + tw / 2, y + hh * .37, 40 * K)
             t = f"{round(h['temperature'])}°"
             ld.text((x + tw / 2, y + hh * .78), t, font=temp, fill='#ffffff', anchor='mm')
         im.paste(layer, (0, 0), mask)
