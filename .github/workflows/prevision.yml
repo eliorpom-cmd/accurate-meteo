@@ -31,6 +31,9 @@ jobs:
       - run: pip install -r requirements.txt
 
       - run: python prevoir.py out/prevision.json
+        env:
+          # optional: today's past hours measured at the station (Météo-France real-time API); without it, sky only
+          MF_API_KEY: ${{ secrets.MF_API_KEY }}
 
       - name: Publish on the prevision branch
         run: |

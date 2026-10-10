@@ -70,6 +70,93 @@ def run(name, rows):
     return [float(x) for x in m['est'].predict(X)]
 
 
+MF_OBS = 'https://public-api.meteofrance.fr/public/DPObs/station/horaire'
+
+
+def station_hour(t):
+    """One hour measured at the station, from Météo-France's real-time observation API (last 24 h only).
+    Needs the MF_API_KEY environment variable (free key from portail-api.meteofrance.fr); None without it."""
+    key = os.environ.get('MF_API_KEY')
+    if not key:
+        return None
+    url = f'{MF_OBS}?id_station={score.STATION}&date={t:%Y-%m-%dT%H:%M:%SZ}&format=json'
+    try:  # curl: same certificate trouble as Météo-France's file server with some Python builds
+        d = json.loads(subprocess.run(['curl', '-sf', '--max-time', '20', '-H', f'apikey: {key}', url],
+                                      capture_output=True, check=True).stdout)
+    except Exception as e:
+        print(f'  station {t:%H} h indisponible : {e}', flush=True)
+        return None
+    d = d[0] if isinstance(d, list) and d else d if isinstance(d, dict) else None
+    if not d or not str(d.get('validity_time', '')).startswith(t.strftime('%Y-%m-%dT%H')):
+        return None
+    num = lambda k: None if d.get(k) in (None, '') else float(d[k])
+    tk, gust = num('t'), num('fxi') if num('fxi') is not None else num('fxy')
+    return {'temperature': None if tk is None else tk - 273.15, 'pluie_mm': num('rr1'),
+            'vent': num('ff'), 'rafales': gust}
+
+
+def sky_today(start, end):
+    """Sunlight measured by satellite (Open-Meteo satellite API, published within about an hour)."""
+    q = dict(latitude=score.LAT, longitude=score.LON, hourly='shortwave_radiation', timezone='GMT',
+             start_date=start, end_date=end)
+    d = get(score.SATELLITE + '?' + '&'.join(f'{k}={v}' for k, v in q.items())) or {}
+    H = d.get('hourly', {})
+    return {score.utc(t): g for t, g in zip(H.get('time', []), H.get('shortwave_radiation', []))}
+
+
+def passees(now, fcs, hourly_models):
+    """Today's hours already over (from 6 h local): what was measured, else what was forecast.
+    Sky from the satellite, temperature / rain / wind from the station when MF_API_KEY is set."""
+    local = now.astimezone(score.PARIS)
+    first = datetime(local.year, local.month, local.day, 6, tzinfo=score.PARIS).astimezone(timezone.utc)
+    last = now.replace(minute=0, second=0, microsecond=0)   # hour ending at the last round hour
+    keys = [first + timedelta(hours=i) for i in range(int((last - first).total_seconds() // 3600) + 1)]
+    if not keys:
+        return []
+    rows = [modeles.row(k, fcs, hourly_models) for k in keys]
+    cond, temp = run('heure_condition', rows), run('heure_temperature', rows)
+    wind, gust = run('heure_vent', rows), run('heure_rafales', rows)
+    sky = sky_today(keys[0].date().isoformat(), keys[-1].date().isoformat())
+    out = []
+    for i, k in enumerate(keys):
+        o = station_hour(k) or {}
+        cs, elev = score.sky_info(k)
+        g = sky.get(k)
+        ratio = g / cs if g is not None and elev > 10 and cs > 50 else None
+        rain = o.get('pluie_mm')
+        if ratio is not None:
+            c = CATS[score.category(rain or 0, ratio, score.RAIN_HOUR)]
+        elif elev <= 0:
+            c = 'pluie' if rain is not None and rain >= score.RAIN_HOUR else 'nuit'
+        else:
+            c = cond[i]['condition']
+        val = lambda v, f: o[v] if o.get(v) is not None else f
+        out.append({'heure': k.astimezone(score.PARIS).isoformat(timespec='minutes'), 'condition': c,
+                    'temperature': r1(val('temperature', temp[i])), 'pluie_mm': r1(rain),
+                    'vent_kmh': r1(val('vent', wind[i]) * 3.6), 'rafales_kmh': r1(val('rafales', gust[i]) * 3.6),
+                    'ratio': None if ratio is None else round(ratio, 2),
+                    'mesure': {'ciel': ratio is not None or elev <= 0, 'station': bool(o)}})
+    return out
+
+
+def demi_passee(hs, part):
+    """Morning (hours ending 7-12 h) or afternoon (13-18 h) already over, rebuilt from the past hours."""
+    lo, hi = (7, 12) if part == 'matin' else (13, 18)
+    sel = [h for h in hs if lo <= int(h['heure'][11:13]) <= hi]
+    if len(sel) != 6:
+        return None
+    ratios = [h['ratio'] for h in sel if h['ratio'] is not None]
+    rains = [h['pluie_mm'] for h in sel]
+    rain = sum(rains) if None not in rains else 0
+    if len(ratios) >= 2:
+        c = CATS[score.category(rain, sum(ratios) / len(ratios), score.RAIN_BLOCK)]
+    else:
+        c = max(CATS, key=lambda x: sum(h['condition'] == x for h in sel))
+    return {'condition': c, 'temperature': r1(sum(h['temperature'] for h in sel) / 6),
+            'rafales_kmh': max(h['rafales_kmh'] for h in sel), 'passe': True,
+            'mesure': {'ciel': len(ratios) >= 2, 'station': all(h['mesure']['station'] for h in sel)}}
+
+
 def r1(x):
     return None if x is None else round(x, 1)
 
@@ -99,13 +186,16 @@ def main(out_path):
     temp, wind, gust = (run(f'heure_{v}', rows) for v in ('temperature', 'vent', 'rafales'))
     heures = []
     for i, k in enumerate(keys):
-        day = score.sky_info(k)[1] > 10  # condition is only learned in daylight
+        day = score.sky_info(k)[1] > 10  # condition is only learned in daylight (probas kept for those hours)
+        up = score.sky_info(k)[1] > 0    # low sun at dawn / dusk: still the model's sky, not a moon
         heures.append({'heure': k.astimezone(score.PARIS).isoformat(timespec='minutes'),
-                       'condition': cond[i]['condition'] if day else ('pluie' if rain[i] >= 0.5 else 'nuit'),
+                       'condition': cond[i]['condition'] if up else ('pluie' if rain[i] >= 0.5 else 'nuit'),
                        'probas': cond[i]['probas'] if day else None,
                        'pluie_proba': round(rain[i], 2), 'temperature': r1(temp[i]),
                        'vent_kmh': r1(wind[i] * 3.6), 'rafales_kmh': r1(gust[i] * 3.6),
                        'precision_reduite': (k - now).total_seconds() > 48 * 3600})
+
+    passe = passees(now, fcs, hourly_models)
 
     # ---------- 7 days, morning / afternoon ----------
     bfcs = {m: modeles.blocks(f) for m, f in fcs.items() if m in trend_models}
@@ -118,8 +208,12 @@ def main(out_path):
         for part in ('matin', 'aprem'):
             k = (date, part)
             end = datetime(date.year, date.month, date.day, 12 if part == 'matin' else 18, tzinfo=score.PARIS)
-            if end <= now or not any(k in bfcs[m] for m in bfcs):
-                continue  # half-day already over, or beyond every model
+            if end <= now:
+                if d == 0 and (p := demi_passee(passe, part)):
+                    entry[part] = p   # already over today: what happened (measured where possible)
+                continue
+            if not any(k in bfcs[m] for m in bfcs):
+                continue  # beyond every model
             row = [modeles.row(k, bfcs, trend_models)]
             c = run(f'bloc{lead}_condition', row)[0]
             entry[part] = {**c, 'temperature': r1(run(f'bloc{lead}_temperature', row)[0]),
@@ -165,7 +259,7 @@ def main(out_path):
 
     out = {'modele': 'GRESIL', 'genere_le': now.astimezone(score.PARIS).isoformat(timespec='minutes'),
            'lieu': score.NOM, 'modeles_absents': missing,
-           'deux_heures': tranches, 'heures': heures, 'jours': jours}
+           'deux_heures': tranches, 'passe': passe, 'heures': heures, 'jours': jours}
     os.makedirs(os.path.dirname(out_path) or '.', exist_ok=True)
     with open(out_path, 'w') as f:
         json.dump(out, f, ensure_ascii=False, indent=1)

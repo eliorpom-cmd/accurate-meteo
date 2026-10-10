@@ -82,11 +82,15 @@ The model list (`TREND_MODELS`, `HOURLY_MODELS`, `NOWCAST_MODELS` in `score.py`)
 {
   "genere_le": "2026-10-09T20:09+02:00",
   "deux_heures": [{"debut": "…", "pluie": false, "pluie_proba": 0.0}],
+  "passe": [{"heure": "…", "condition": "couvert", "temperature": 12.0, "pluie_mm": 0.0, "vent_kmh": 7.2, "rafales_kmh": 16.6,
+             "ratio": 0.22, "mesure": {"ciel": true, "station": true}}],
   "heures": [{"heure": "…", "condition": "pluie", "probas": {"soleil": 0, "mitigé": 0.05, "couvert": 0.02, "pluie": 0.92},
               "pluie_proba": 0.78, "temperature": 11.2, "vent_kmh": 3.1, "rafales_kmh": 9.0, "precision_reduite": false}],
   "jours": [{"date": "2026-10-10", "matin": {"condition": "pluie", "probas": {}, "temperature": 12.0, "rafales_kmh": 14.4}, "aprem": {}}]
 }
 ```
+
+`passe` = today's hours already over (from 6 am): the sky measured by satellite and, when the `MF_API_KEY` secret holds a free key from [Météo-France's API portal](https://portail-api.meteofrance.fr) (*Données d'observation*), the station's temperature, rain and wind; otherwise the forecast values. A half-day already over comes back in `jours` with `"passe": true`.
 
 ## Public API
 
