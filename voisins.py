@@ -7,10 +7,16 @@ for the variables that decide the sky (sunlight, cloud cover, rain), forecast ma
 Same honest test as figer.py: train before SPLIT, score after, with and without the neighbours, on the same cases.
 Targets: hourly condition and rain (day before), half-day condition at D+1 and D+2.
 
-Usage: OMP_NUM_THREADS=4 nice -n 10 .venv/bin/python voisins.py   (≈1,700 weighted Open-Meteo calls, writes VOISINS.md)
+With --mois: the stricter test of retro.py instead (each month left out in turn, trained on all the others),
+which says whether a gain holds month after month or comes from one lucky split. Cache only, ~30 min.
+
+Usage: OMP_NUM_THREADS=4 nice -n 10 .venv/bin/python voisins.py [--mois]   (≈1,700 weighted Open-Meteo calls
+       the first time, writes VOISINS.md)
 """
-import json, math, os, urllib.request
+import json, math, os, sys, urllib.request
 import numpy as np
+from joblib import Parallel, delayed
+import blend
 import figer
 import modeles
 import score
@@ -82,10 +88,42 @@ def test(name, kind, keys, X, Xn, y):
     return line
 
 
+def _one_month(X_, y, months, mo, kind):
+    tr, te = months != mo, months == mo
+    est, keep = figer.fit('cls', X_[tr], y[tr])
+    if kind == 'condition':
+        return figer.predict_condition(est, keep, X_[te])
+    return est.predict_proba(X_[te][:, keep])[:, 1] >= .5
+
+
+def test_mois(name, kind, keys, X, Xn, y):
+    """Leave-one-month-out over the whole period, with and without the neighbours."""
+    months = np.array([blend.month_id(figer.day(k)) for k in keys])
+    uniq = np.unique(months)
+    preds, per_month = [], []
+    for X_ in (X, np.hstack([X, Xn])):
+        res = Parallel(n_jobs=4)(delayed(_one_month)(X_, y, months, mo, kind) for mo in uniq)
+        p = np.empty(len(y), dtype=int if kind == 'condition' else bool)
+        for mo, r in zip(uniq, res):
+            p[months == mo] = r
+        preds.append(p)
+    score_ = lambda p, m=None: (blend.summary(p[m], y[m])[0] if kind == 'condition'
+                                else figer.csi(p[m], y[m].astype(bool))) if m is not None else \
+        (blend.summary(p, y)[0] if kind == 'condition' else figer.csi(p, y.astype(bool)))
+    a, b = score_(preds[0]), score_(preds[1])
+    wins = sum(score_(preds[1], months == mo) > score_(preds[0], months == mo) for mo in uniq)
+    ties = sum(score_(preds[1], months == mo) == score_(preds[0], months == mo) for mo in uniq)
+    line = f'| {name} | {a:.1f} | **{b:.1f}** | {b - a:+.1f} | {wins} / {len(uniq) - ties} | {len(y)} |'
+    print(line, flush=True)
+    return line
+
+
 def main():
     pts = points()
     print('points :', pts, flush=True)
     nb = {p[0]: fetch(p) for p in pts}
+    mois = '--mois' in sys.argv
+    t = test_mois if mois else test
     obs = score.load_obs()
     lines = []
 
@@ -94,10 +132,10 @@ def main():
     fcs = {m: modeles.hours(score.api(score.PREVIOUS, {'hourly': hv, 'models': m})['hourly'], '_previous_day1')
            for m in score.HOURLY_MODELS}
     keys, X, y = figer.build(fcs, obs, score.HOURLY_MODELS, lambda o: o['cat'], lambda o, k: o['cat'] is not None)
-    lines.append(test('heure_condition (veille)', 'condition', keys, X, neighbour_rows(keys, nb, 1), y))
+    lines.append(t('heure_condition (veille)', 'condition', keys, X, neighbour_rows(keys, nb, 1), y))
     keys, X, y = figer.build(fcs, obs, score.HOURLY_MODELS, lambda o: o['pluie_mm'] >= score.RAIN_HOUR,
                              lambda o, k: o['pluie_mm'] is not None)
-    lines.append(test('heure_pluie (veille, réussite %)', 'pluie', keys, X, neighbour_rows(keys, nb, 1), y.astype(int)))
+    lines.append(t('heure_pluie (veille, réussite %)', 'pluie', keys, X, neighbour_rows(keys, nb, 1), y.astype(int)))
 
     # half-days, D+1 and D+2
     oblocks = score.to_blocks(obs)
@@ -106,8 +144,15 @@ def main():
     for lead in (1, 2):
         fcs = {m: modeles.blocks(modeles.hours(d['hourly'], f'_previous_day{lead}')) for m, d in raw.items()}
         keys, X, y = figer.build(fcs, oblocks, score.TREND_MODELS, lambda o: o['cat'], lambda o, k: o['cat'] is not None)
-        lines.append(test(f'bloc{lead}_condition (J+{lead})', 'condition', keys, X, neighbour_rows(keys, nb, lead), y))
+        lines.append(t(f'bloc{lead}_condition (J+{lead})', 'condition', keys, X, neighbour_rows(keys, nb, lead), y))
 
+    if mois:
+        head = ['\n## Test mois par mois\n',
+                'Chaque mois laissé de côté à tour de rôle (entraîné sur tous les autres), comme retro.py. '
+                '« Mois gagnés » = mois où les voisins font mieux, sur les mois où il y a un écart.\n',
+                '| Modèle | Sans voisins | Avec voisins | Écart | Mois gagnés | Cas testés |', '|---|---|---|---|---|---|', *lines]
+        open(os.path.join(score.SORTIE, 'VOISINS.md'), 'a').write('\n'.join(head) + '\n')
+        return
     report = ['# Points voisins (roadmap 3b)\n',
               f'Chaque modèle lu aussi en {len(pts)} points autour de {score.NOM} '
               f'({", ".join(p[0] for p in pts)}), modèles {", ".join(MODELS)}, variables {VARS}. '
