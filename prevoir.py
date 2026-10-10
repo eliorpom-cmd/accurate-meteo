@@ -108,12 +108,14 @@ def sky_today(start, end):
 
 def passees(now, fcs, hourly_models):
     """Today's hours already over (from 6 h local): what was measured, else what was forecast.
-    Sky from the satellite, temperature / rain / wind from the station when MF_API_KEY is set."""
+    Sky from the satellite, temperature / rain / wind from the station when MF_API_KEY is set.
+    Labelled by their start like the forecast hours: sky and rain of the hour ending at k, temperature and wind at k - 1 h
+    (the first key, the hour ending at 6 h, only lends its end values to the 6 h hour)."""
     local = now.astimezone(score.PARIS)
     first = datetime(local.year, local.month, local.day, 6, tzinfo=score.PARIS).astimezone(timezone.utc)
     last = now.replace(minute=0, second=0, microsecond=0)   # hour ending at the last round hour
     keys = [first + timedelta(hours=i) for i in range(int((last - first).total_seconds() // 3600) + 1)]
-    if not keys:
+    if len(keys) < 2:
         return []
     rows = [modeles.row(k, fcs, hourly_models) for k in keys]
     cond, temp = run('heure_condition', rows), run('heure_temperature', rows)
@@ -138,12 +140,14 @@ def passees(now, fcs, hourly_models):
                     'vent_kmh': r1(val('vent', wind[i]) * 3.6), 'rafales_kmh': r1(val('rafales', gust[i]) * 3.6),
                     'ratio': None if ratio is None else round(ratio, 2),
                     'mesure': {'ciel': ratio is not None or elev <= 0, 'station': bool(o)}})
-    return out
+    # start labels: hour ending at k → labelled k - 1 h, with the instant values (temperature, wind) taken at k - 1 h
+    return [{**h, 'heure': prev['heure'], 'temperature': prev['temperature'], 'vent_kmh': prev['vent_kmh']}
+            for prev, h in zip(out, out[1:])]
 
 
 def demi_passee(hs, part):
-    """Morning (hours ending 7-12 h) or afternoon (13-18 h) already over, rebuilt from the past hours."""
-    lo, hi = (7, 12) if part == 'matin' else (13, 18)
+    """Morning (hours starting 6-11 h) or afternoon (12-17 h) already over, rebuilt from the past hours."""
+    lo, hi = (6, 11) if part == 'matin' else (12, 17)
     sel = [h for h in hs if lo <= int(h['heure'][11:13]) <= hi]
     if len(sel) != 6:
         return None
@@ -183,17 +187,21 @@ def main(out_path):
     last_day = now.astimezone(score.PARIS).date() + timedelta(days=7)
     end = datetime(last_day.year, last_day.month, last_day.day, 23, tzinfo=score.PARIS).astimezone(timezone.utc)
     keys = [start + timedelta(hours=i) for i in range(int((end - start).total_seconds() // 3600) + 1)]
-    rows = [modeles.row(k, fcs, hourly_models) for k in keys]
-    cond, rain = run('heure_condition', rows), run('heure_pluie', rows)
-    temp, wind, gust = (run(f'heure_{v}', rows) for v in ('temperature', 'vent', 'rafales'))
+    # Model keys are hour ENDS (Météo-France / Open-Meteo: rain, sky and gusts of the hour ending at k). Published hours
+    # carry their START, as people read them ("19 h" = 19 h to 20 h): sky, rain and gusts of the hour ending at k,
+    # temperature and wind measured at its start (k - 1 h, one extra key computed for that)
+    rows = [modeles.row(k, fcs, hourly_models) for k in [keys[0] - timedelta(hours=1)] + keys]
+    cond, rain = run('heure_condition', rows[1:]), run('heure_pluie', rows[1:])
+    temp, wind = run('heure_temperature', rows), run('heure_vent', rows)
+    gust = run('heure_rafales', rows[1:])
     heures = []
     for i, k in enumerate(keys):
         day = score.sky_info(k)[1] > 10  # condition is only learned in daylight (probas kept for those hours)
         up = score.sky_info(k)[1] > 0    # low sun at dawn / dusk: still the model's sky, not a moon
-        heures.append({'heure': k.astimezone(score.PARIS).isoformat(timespec='minutes'),
+        heures.append({'heure': (k - timedelta(hours=1)).astimezone(score.PARIS).isoformat(timespec='minutes'),
                        'condition': cond[i]['condition'] if up else ('pluie' if rain[i] >= 0.5 else 'nuit'),
                        'probas': cond[i]['probas'] if day else None,
-                       'pluie_proba': round(rain[i], 2), 'temperature': r1(temp[i]),
+                       'pluie_proba': round(rain[i], 2), 'temperature': r1(temp[i]),   # temp[i] = at k - 1 h
                        'vent_kmh': r1(wind[i] * 3.6), 'rafales_kmh': r1(gust[i] * 3.6),
                        'precision_reduite': (k - now).total_seconds() > 48 * 3600})
 

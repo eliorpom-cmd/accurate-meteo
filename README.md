@@ -103,7 +103,7 @@ GET https://meteo-api.byelior.com/v1/prevision
 - JSON, same fields as `prevision.json` below, plus `modele` ("GRESIL"), `api_version`, `lieu` (place and coordinates), `attribution` and `usage`.
 - CORS open (`Access-Control-Allow-Origin: *`): call it straight from a web page.
 - Cached 60 s at the edge: polling more often than once a minute gains nothing.
-- Times are local (Europe/Paris) with their offset. `deux_heures` holds 3 hours of 20-minute slots: keep those that start from your own clock, so a forecast computed a few minutes ago still shows the right 2 hours.
+- Times are local (Europe/Paris) with their offset. Each hour in `heures` and `passe` is labelled by its **start**: `"19:00"` = 19:00 to 20:00 (sky, rain probability, gusts over that hour; temperature and wind at 19:00). Before 10 October 2026, 14:30 Paris time, hours were labelled by their end; `/v1/historique` entries from before that keep the old labels. `deux_heures` holds 3 hours of 20-minute slots: keep those that start from your own clock, so a forecast computed a few minutes ago still shows the right 2 hours.
 - Grenoble only. Non-commercial use (a condition of Open-Meteo's free tier), and please credit the source as given in `attribution`.
 - Breaking changes will get a new version path (`/v2/…`).
 
@@ -128,8 +128,8 @@ Example, to paste into any web page (no build step, no key):
 <script type="module">
   const p = await (await fetch('https://meteo-api.byelior.com/v1/prevision')).json();
   const now = Date.now();
-  // current hour: the first forecast hour that has not started yet
-  const h = p.heures.find(x => Date.parse(x.heure) > now);
+  // current hour: the one not over yet (each hour is labelled by its start)
+  const h = p.heures.find(x => Date.parse(x.heure) + 3600000 > now);
   // rain in the next 2 hours: the 20-minute slots not over yet
   const slots = p.deux_heures.filter(s => Date.parse(s.debut) + 20 * 60000 > now).slice(0, 6);
   const rain = slots.find(s => s.pluie);
