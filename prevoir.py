@@ -13,6 +13,7 @@ import blend
 import modeles
 import radar
 import score
+import vignette
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 LIVE = 'https://api.open-meteo.com/v1/forecast'
@@ -268,6 +269,10 @@ def main(out_path):
     os.makedirs(os.path.dirname(out_path) or '.', exist_ok=True)
     with open(out_path, 'w') as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
+    try:   # sharing preview with the next 7 days; the forecast itself must not depend on it
+        vignette.draw(out, os.path.join(os.path.dirname(out_path) or '.', 'og.png'))
+    except Exception as e:
+        print(f'  image de partage non dessinée : {e}', flush=True)
     print(f'{out_path} écrit ({len(heures)} heures, {len(jours)} jours, {len(tranches)} tranches, absents : {missing})')
 
 

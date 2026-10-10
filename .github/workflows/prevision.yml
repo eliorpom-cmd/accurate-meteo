@@ -41,7 +41,7 @@ jobs:
           git init -q -b prevision
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add prevision.json  # the journal/ folder goes to its own branch below
+          git add prevision.json og.png  # og.png = sharing preview; the journal/ folder goes to its own branch below
           git commit -q -m "Prévision du $(date -u +%Y-%m-%dT%H:%MZ)"
           git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" prevision
 
