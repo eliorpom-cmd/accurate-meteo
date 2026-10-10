@@ -64,8 +64,8 @@ def icon(d, cond, cx, cy, s):
 def draw(prev, out_path):
     im = Image.new('RGB', (W * K, H * K), BG)
     d = ImageDraw.Draw(im)
-    title, small = font('BricolageGrotesque.ttf', 64, [48, 700, 100]), font('Figtree.ttf', 24, [500])
-    name, temp = font('BricolageGrotesque.ttf', 24, [24, 700, 100]), font('BricolageGrotesque.ttf', 30, [24, 500, 100])
+    title, small = font('HostGrotesk.ttf', 64, [700]), font('HostGrotesk.ttf', 24, [500])
+    name, temp = font('HostGrotesk.ttf', 24, [700]), font('HostGrotesk.ttf', 30, [500])
     made = datetime.fromisoformat(prev['genere_le'])
     d.text((56 * K, 52 * K), 'Météo Grenoble', font=title, fill=INK)
     d.text((58 * K, 136 * K), f"Prévision du {JOURS[made.weekday()].lower()} {made.day} {MOIS[made.month - 1]}, "
@@ -81,9 +81,9 @@ def draw(prev, out_path):
         dd = date.fromisoformat(j['date'])
         label = "Aujourd'hui" if dd == today else 'Demain' if (dd - today).days == 1 else JOURS[dd.weekday()]
         size = 24
-        while size > 16 and d.textlength(label, font=font('BricolageGrotesque.ttf', size, [24, 700, 100])) > tw - 28 * K:
+        while size > 16 and d.textlength(label, font=font('HostGrotesk.ttf', size, [700])) > tw - 28 * K:
             size -= 1   # long names ("Aujourd'hui", "Mercredi") shrink to fit the tile
-        d.text((x + 14 * K, top + 14 * K), label, font=font('BricolageGrotesque.ttf', size, [24, 700, 100]), fill=INK)
+        d.text((x + 14 * K, top + 14 * K), label, font=font('HostGrotesk.ttf', size, [700]), fill=INK)
         d.text((x + 14 * K, top + 46 * K), f'{dd.day} {MOIS_COURTS[dd.month - 1]}', font=small, fill=DIM)
         halves = [j[p] for p in ('matin', 'aprem') if j.get(p)]
         py0, py1, pad = top + 86 * K, bottom - 6 * K, 6 * K
