@@ -107,6 +107,20 @@ GET https://meteo-api.byelior.com/v1/prevision
 - Grenoble only. Non-commercial use (a condition of Open-Meteo's free tier), and please credit the source as given in `attribution`.
 - Breaking changes will get a new version path (`/v2/…`).
 
+### Past forecasts
+
+What the API served at a given hour, kept since 10 October 2026 (the first run of each hour, never rewritten):
+
+```
+GET https://meteo-api.byelior.com/v1/historique                       list of recorded hours ("2026-10-10T12Z", UTC)
+GET https://meteo-api.byelior.com/v1/historique/2026-10-10T12Z        the forecast recorded that hour
+GET https://meteo-api.byelior.com/v1/historique?le=2026-10-09T18:30Z  the last one recorded at or before that moment
+```
+
+- Same fields as `/v1/prevision`, plus `enregistree` (the hour key). `le` takes any ISO date or time, with its offset (`2026-10-09T20:30+02:00`), or a plain date (the day's last forecast).
+- Yesterday's forecast for today: `?le=` with yesterday's date and time.
+- Hours missing from the list were not recorded (GitHub skipped the run).
+
 Example, to paste into any web page (no build step, no key):
 
 ```html
