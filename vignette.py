@@ -130,7 +130,8 @@ def draw(prev, out_path):
         for k, h in enumerate(halves):
             y = py0 + k * hh
             gradient(ld, [x + pad, y, x + tw - pad, y + hh], *SKY.get(h['condition'], SKY['couvert']))
-            icon(ld, h['condition'], x + tw / 2, y + hh * .4, 58 * K)
+            # icon in the upper part, temperature below with clear air between them (rays used to touch it)
+            icon(ld, h['condition'], x + tw / 2, y + hh * .37, 40 * K)
             t = f"{round(h['temperature'])}°"
             ld.text((x + tw / 2, y + hh * .78), t, font=temp, fill='#ffffff', anchor='mm')
         im.paste(layer, (0, 0), mask)
