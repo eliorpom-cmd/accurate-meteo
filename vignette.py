@@ -12,8 +12,11 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = os.path.dirname(os.path.abspath(__file__))
 W, H, K = 1200, 630, 2                       # drawn at 2× then reduced: smooth edges
 BG, TILE, INK, DIM = '#f1f1f3', '#ffffff', '#121316', '#6e7178'
-SKY = {'soleil': '#ffe39a', 'mitigé': '#fdf0cc', 'couvert': '#e3e7ee', 'pluie': '#cfe1ff', 'nuit': '#dde2ec'}
-SUN, CLOUD, CLOUD2, DROP = '#ffb800', '#8f9bab', '#bcc5d1', '#1d5fd6'
+# same skies as the site: a gradient per state (top, bottom), white text on it
+SKY = {'soleil': ('#2f86f0', '#1652c8'), 'mitigé': ('#5b87c4', '#30589c'), 'couvert': ('#7d889a', '#4f5a6b'),
+       'pluie': ('#4a5c7c', '#26334c'), 'nuit': ('#1c2860', '#0a102c')}
+SUN, CLOUD, CLOUD2, DROP = '#ffb800', '#8f9bab', '#bcc5d1', '#cfe1ff'
+BRAND = '#1347c2'
 MOIS_COURTS = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 JOURS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre',
@@ -41,6 +44,36 @@ def cloud(d, cx, cy, s, col):
     d.ellipse([cx - .35 * s, cy - .85 * s, cx + .75 * s, cy + .25 * s], fill=col)
 
 
+def hexa(c):
+    return tuple(int(c[i:i + 2], 16) for i in (1, 3, 5))
+
+
+def gradient(d, box, top, bottom):
+    """Vertical gradient filling box, one line per pixel row."""
+    x0, y0, x1, y1 = box
+    a, b = hexa(top), hexa(bottom)
+    n = max(1, int(y1 - y0))
+    for k in range(n):
+        t = k / n
+        d.line([x0, y0 + k, x1, y0 + k], fill=tuple(round(a[i] + (b[i] - a[i]) * t) for i in range(3)))
+
+
+def badge(im, x, y, size):
+    """The site's icon: blue square, halftone dots that swell toward the bottom-left, cut by the rounded corners."""
+    size = int(size)
+    tile = Image.new('RGB', (size, size), BRAND)
+    td = ImageDraw.Draw(tile)
+    u, step = size / 48, 7.2
+    for i in range(-1, 8):
+        for j in range(-1, 8):
+            cx, cy = 1 + j * step + (step / 2 if i % 2 else 0), 1 + i * step
+            r = .4 + 3.3 * min(1, max(0, (cy * .85 + (48 - cx) * .55) / 58)) ** 1.2
+            td.ellipse([(cx - r) * u, (cy - r) * u, (cx + r) * u, (cy + r) * u], fill='#ffffff')
+    mask = Image.new('L', (size, size), 0)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, size - 1, size - 1], radius=size * .22, fill=255)
+    im.paste(tile, (int(x), int(y)), mask)
+
+
 def icon(d, cond, cx, cy, s):
     if cond == 'soleil':
         sun(d, cx, cy, .42 * s)
@@ -58,7 +91,7 @@ def icon(d, cond, cx, cy, s):
     else:   # nuit
         r = .38 * s
         d.ellipse([cx - r, cy - r, cx + r, cy + r], fill='#7b8494')
-        d.ellipse([cx - r + .32 * s, cy - r - .1 * s, cx + r + .32 * s, cy + r - .1 * s], fill=SKY['nuit'])
+        d.ellipse([cx - r + .32 * s, cy - r - .1 * s, cx + r + .32 * s, cy + r - .1 * s], fill='#131c46')
 
 
 def draw(prev, out_path):
@@ -68,6 +101,7 @@ def draw(prev, out_path):
     name, temp = font('HostGrotesk.ttf', 24, [700]), font('HostGrotesk.ttf', 30, [500])
     made = datetime.fromisoformat(prev['genere_le'])
     d.text((56 * K, 52 * K), 'Météo Grenoble', font=title, fill=INK)
+    badge(im, (W - 56 - 96) * K, 48 * K, 96 * K)
     d.text((58 * K, 136 * K), f"Prévision du {JOURS[made.weekday()].lower()} {made.day} {MOIS[made.month - 1]}, "
            f"{made.hour} h {made.minute:02d}", font=small, fill=DIM)
 
@@ -95,10 +129,10 @@ def draw(prev, out_path):
         ld = ImageDraw.Draw(layer)
         for k, h in enumerate(halves):
             y = py0 + k * hh
-            ld.rectangle([x + pad, y, x + tw - pad, y + hh], fill=SKY.get(h['condition'], SKY['couvert']))
+            gradient(ld, [x + pad, y, x + tw - pad, y + hh], *SKY.get(h['condition'], SKY['couvert']))
             icon(ld, h['condition'], x + tw / 2, y + hh * .4, 58 * K)
             t = f"{round(h['temperature'])}°"
-            ld.text((x + tw / 2, y + hh * .78), t, font=temp, fill=INK, anchor='mm')
+            ld.text((x + tw / 2, y + hh * .78), t, font=temp, fill='#ffffff', anchor='mm')
         im.paste(layer, (0, 0), mask)
     im.resize((W, H), Image.LANCZOS).save(out_path, optimize=True)
 
