@@ -71,6 +71,21 @@ Then run the three rebuild steps above.
 }
 ```
 
+## Public API
+
+The latest forecast, refreshed every 15 minutes, free and without a key:
+
+```
+GET https://meteo-api.byelior.com/v1/prevision
+```
+
+- JSON, same fields as `prevision.json` below, plus `api_version`, `lieu` (place and coordinates), `attribution` and `usage`.
+- CORS open (`Access-Control-Allow-Origin: *`): call it straight from a web page.
+- Cached 60 s at the edge: polling more often than once a minute gains nothing.
+- Times are local (Europe/Paris) with their offset. `deux_heures` holds 3 hours of 20-minute slots: keep those that start from your own clock, so a forecast computed a few minutes ago still shows the right 2 hours.
+- Grenoble only. Non-commercial use (a condition of Open-Meteo's free tier), and please credit the source as given in `attribution`.
+- Breaking changes will get a new version path (`/v2/…`).
+
 ## Limits
 
 - Forecast archives start in early 2024: 2.7 years of training, no more.

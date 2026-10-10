@@ -1,9 +1,10 @@
-# Deploy: cd horloge && wrangler deploy && wrangler secret put GITHUB_TOKEN
+# Deploy: cd horloge && wrangler deploy (secret once: wrangler secret put GITHUB_TOKEN)
 name = "accurate-meteo-horloge"
 main = "worker.js"
 account_id = "0bcd1b213f9a7a11ff83178c5ebd69d2"   # Eliorpom@gmail.com account (holds byelior.com)
 compatibility_date = "2026-09-01"
-workers_dev = false   # no public URL: the worker only runs on its schedule
+workers_dev = false
+routes = [{ pattern = "meteo-api.byelior.com", custom_domain = true }]   # public API
 
 [triggers]
 crons = ["*/15 * * * *"]
