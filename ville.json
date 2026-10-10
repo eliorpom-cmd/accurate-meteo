@@ -1,0 +1,10 @@
+{
+  "nom": "Grenoble",
+  "latitude": 45.2115,
+  "longitude": 5.682833,
+  "altitude_m": 213,
+  "station": "38185012",
+  "station_nom": "GRENOBLE-CEA-RADOME",
+  "station_pression": "38538002",
+  "fuseau": "Europe/Paris"
+}

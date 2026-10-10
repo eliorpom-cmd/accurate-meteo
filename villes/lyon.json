@@ -1,0 +1,10 @@
+{
+  "nom": "Lyon",
+  "latitude": 45.721333,
+  "longitude": 4.949167,
+  "altitude_m": 202,
+  "station": "69029001",
+  "station_nom": "LYON-BRON",
+  "station_pression": "69029001",
+  "fuseau": "Europe/Paris"
+}

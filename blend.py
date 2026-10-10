@@ -218,4 +218,4 @@ if __name__ == '__main__':
                          for m, d in raw.items() if d}
     evaluate('Créneaux matin / après-midi', by_lead, oblocks, make_persist(oblocks, False), out, pooled=True)
 
-    open(score.os.path.join(score.ROOT, 'MEGA-MODELE.md'), 'w').write('\n'.join(out))
+    open(score.os.path.join(score.SORTIE, 'MEGA-MODELE.md'), 'w').write('\n'.join(out))

@@ -13,6 +13,8 @@ Three scales:
   2. Next day, hour by hour: forecast made the day before
   3. Next 2 hours: rain in 20-minute slots + hourly condition and parameters from the first hours of each run
 
+The place (coordinates, stations) comes from ville.json; for another city see README « Your own city ».
+
 Usage: python3 score.py   (downloads into data/, caches API answers in data/cache/, writes RESULTATS.md)
 """
 import csv, gzip, hashlib, json, math, os, subprocess, time, urllib.error, urllib.request
@@ -20,14 +22,25 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(ROOT, 'data')
+# The place comes from ville.json (Grenoble); another city: VILLE=villes/<name>.json python3 score.py
+# Another city keeps its data, frozen models and reports in villes/<name>/: the API cache key does not
+# contain the coordinates, so two places must never share a data/ folder.
+VILLE_PATH = os.path.abspath(os.environ.get('VILLE', os.path.join(ROOT, 'ville.json')))
+VILLE = json.load(open(VILLE_PATH))
+SORTIE = ROOT if VILLE_PATH == os.path.join(ROOT, 'ville.json') else \
+    os.path.join(ROOT, 'villes', os.path.splitext(os.path.basename(VILLE_PATH))[0])
+DATA = os.path.join(SORTIE, 'data')
 CACHE = os.path.join(DATA, 'cache')
-STATION, PRESSURE_STATION = '38185012', '38538002'
-LAT, LON, ELEV = 45.2115, 5.682833, 213
+MODELES = os.path.join(SORTIE, 'modeles')
+NOM, STATION_NOM = VILLE['nom'], VILLE['station_nom']
+STATION = VILLE['station']
+PRESSURE_STATION = VILLE.get('station_pression') or STATION  # sea-level pressure, often measured elsewhere
+DEPT = STATION[:2]                                             # Météo-France files are split by département
+LAT, LON, ELEV = VILLE['latitude'], VILLE['longitude'], VILLE['altitude_m']
 START, END = '2024-02-01', '2026-10-08'  # forecast archives (Previous Runs API) start in early 2024
 # The API is fetched in chunks so a longer period reuses what is already cached
 CHUNKS = [('2024-02-01', '2024-12-31'), ('2025-01-01', '2025-09-30'), ('2025-10-01', '2026-10-08')]
-PARIS = ZoneInfo('Europe/Paris')
+PARIS = ZoneInfo(VILLE.get('fuseau', 'Europe/Paris'))  # local time (name kept from the first version)
 MF = 'https://meteofrance.s3.sbg.io.cloud.ovh.net/data/synchro_ftp/BASE'
 PREVIOUS = 'https://previous-runs-api.open-meteo.com/v1/forecast'
 HISTORICAL = 'https://historical-forecast-api.open-meteo.com/v1/forecast'
@@ -180,8 +193,8 @@ def cloud_ratio(cc):
 # ---------- observations ----------
 
 def load_obs():
-    paths = [download('H_38_previous.csv.gz', f'{MF}/HOR/H_38_previous-2020-2024.csv.gz'),
-             download('H_38_latest.csv.gz', f'{MF}/HOR/H_38_latest-2025-2026.csv.gz')]
+    paths = [download(f'H_{DEPT}_previous.csv.gz', f'{MF}/HOR/H_{DEPT}_previous-2020-2024.csv.gz'),
+             download(f'H_{DEPT}_latest.csv.gz', f'{MF}/HOR/H_{DEPT}_latest-2025-2026.csv.gz')]
     obs, pres = {}, {}
     for path in paths:
         with gzip.open(path, 'rt') as f:
@@ -213,8 +226,8 @@ def load_obs():
 
 def load_6min_rain():
     rain = {}
-    for name, period in (('MN_38_previous.csv.gz', 'previous-2020-2024'), ('MN_38_latest.csv.gz', 'latest-2025-2026')):
-        with gzip.open(download(name, f'{MF}/MIN/MN_38_{period}.csv.gz'), 'rt') as f:
+    for name, period in ((f'MN_{DEPT}_previous.csv.gz', 'previous-2020-2024'), (f'MN_{DEPT}_latest.csv.gz', 'latest-2025-2026')):
+        with gzip.open(download(name, f'{MF}/MIN/MN_{DEPT}_{period}.csv.gz'), 'rt') as f:
             r = csv.reader(f, delimiter=';')
             next(r)
             for row in r:
@@ -473,9 +486,9 @@ if __name__ == '__main__':
     obs = load_obs()
     rain6 = load_6min_rain()
     oc = [o['cat'] for o in obs.values() if o['cat'] is not None]
-    out = ['# Fiabilité des modèles météo à Grenoble\n',
-           f'Période {START} → {END}. Vérité terrain : station GRENOBLE-CEA-RADOME (température, humidité, vent, pluie), '
-           'GRENOBLE-LVD (pression), satellite EUMETSAT (soleil). Heures de jour seulement pour la condition.\n',
+    out = [f'# Fiabilité des modèles météo à {NOM}\n',
+           f'Période {START} → {END}. Vérité terrain : station {STATION_NOM} (température, humidité, vent, pluie), '
+           f'station {PRESSURE_STATION} (pression), satellite EUMETSAT (soleil). Heures de jour seulement pour la condition.\n',
            'Score /100 = ' + ', '.join(f'{k} {v} %' for k, v in WEIGHTS.items()) + '. '
            'Condition : bonne catégorie = 1 point, voisine (soleil↔mitigé, mitigé↔couvert) = 0,5, couvert↔pluie = 0,3. '
            'Les autres paramètres : 100 × (1 − erreur moyenne / tolérance), tolérances heure : '
@@ -487,5 +500,5 @@ if __name__ == '__main__':
     scale_trend(obs, out)
     scale_hourly(obs, out)
     scale_nowcast(obs, rain6, out)
-    open(os.path.join(ROOT, 'RESULTATS.md'), 'w').write('\n'.join(out))
+    open(os.path.join(SORTIE, 'RESULTATS.md'), 'w').write('\n'.join(out))
     print('\n'.join(out))

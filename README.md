@@ -53,13 +53,28 @@ Rebuilding everything from scratch downloads ~3 years of archives (cached in `da
 
 ## Use it for another city
 
-Edit the top of `score.py`:
+Anyone in France can train the same model for their own place. The location lives in `ville.json` (Grenoble); another city gets its own file in `villes/` and its own folder for data, frozen models and reports, so cities never mix.
 
-- `STATION`, `PRESSURE_STATION`: Météo-France station IDs (any station from the open [Météo-France climatological data](https://meteo.data.gouv.fr)); outside France, `load_obs()` must be adapted to your station's format.
-- `LAT`, `LON`, `ELEV`: the station's coordinates.
-- `TREND_MODELS`, `HOURLY_MODELS`, `NOWCAST_MODELS`: models that cover your area.
+1. Find a station: the nearest Météo-France automatic station that measures temperature, humidity, wind, gusts and hourly rain.
 
-Then run the three rebuild steps above.
+   ```sh
+   python3 trouver_station.py 69 45.7578 4.8320            # département(s), latitude, longitude
+   python3 trouver_station.py 69,01 45.7578 4.8320 --minutes  # also check 6-minute rain (2-hour model)
+   ```
+
+   Pick one marked ✓ everywhere, within ~10 km and at a similar altitude. Pressure is often measured elsewhere: use the nearest station with ✓ under *pression* as `station_pression`.
+
+2. Describe the city: copy `ville.json` to `villes/<city>.json` and fill it in (see `villes/lyon.json`).
+
+3. Rebuild with `VILLE` set (about a day of Open-Meteo's free quota; results go to `villes/<city>/`):
+
+   ```sh
+   export VILLE=villes/lyon.json
+   .venv/bin/python score.py && .venv/bin/python figer.py && .venv/bin/python retro.py
+   .venv/bin/python prevoir.py      # → villes/lyon/out/prevision.json
+   ```
+
+The model list (`TREND_MODELS`, `HOURLY_MODELS`, `NOWCAST_MODELS` in `score.py`) covers France and its neighbours; outside France, `load_obs()` must also be adapted to your station's data.
 
 ## `prevision.json`
 

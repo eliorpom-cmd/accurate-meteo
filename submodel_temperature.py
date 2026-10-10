@@ -257,7 +257,7 @@ if __name__ == '__main__':
     y = obs[:, 0]
     rows = np.isfinite(y)
     out = ['# Sous-modèle température\n',
-           f'Cible : température à 2 m mesurée à GRENOBLE-CEA-RADOME, heure par heure. Test honnête : chaque mois de '
+           f'Cible : température à 2 m mesurée à {score.STATION_NOM}, heure par heure. Test honnête : chaque mois de '
            f'{TEST_FROM} au {score.END} est prédit par un modèle entraîné sur tous les autres mois (données depuis le '
            f'{score.START}). Toutes les prévisions sont notées sur exactement les mêmes heures.\n',
            'Sous-modèle : gradient boosting (scikit-learn, 300 arbres) avec la température et les autres paramètres '
@@ -381,5 +381,5 @@ if __name__ == '__main__':
                                      for k, v in summary[L].items() if not k.startswith('_') and k != 'n'))
 
     out.append(f'_Calcul : {(time.time() - t_start) / 60:.0f} min._\n')
-    open(os.path.join(score.ROOT, 'SOUS-MODELE-TEMPERATURE.md'), 'w').write('\n'.join(out))
+    open(os.path.join(score.SORTIE, 'SOUS-MODELE-TEMPERATURE.md'), 'w').write('\n'.join(out))
     log(f'done in {(time.time() - t_start) / 60:.1f} min')

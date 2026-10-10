@@ -53,7 +53,7 @@ def fetch_all(models, block, variables, days):
 
 
 def load(name):
-    return joblib.load(os.path.join(ROOT, 'modeles', f'{name}.joblib'))
+    return joblib.load(os.path.join(score.MODELES, f'{name}.joblib'))
 
 
 def run(name, rows):
@@ -164,7 +164,7 @@ def main(out_path):
         json.dump(journal, f, separators=(',', ':'))
 
     out = {'modele': 'GRESIL', 'genere_le': now.astimezone(score.PARIS).isoformat(timespec='minutes'),
-           'lieu': 'Grenoble', 'modeles_absents': missing,
+           'lieu': score.NOM, 'modeles_absents': missing,
            'deux_heures': tranches, 'heures': heures, 'jours': jours}
     os.makedirs(os.path.dirname(out_path) or '.', exist_ok=True)
     with open(out_path, 'w') as f:
@@ -173,4 +173,4 @@ def main(out_path):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'out', 'prevision.json'))
+    main(sys.argv[1] if len(sys.argv) > 1 else os.path.join(score.SORTIE, 'out', 'prevision.json'))

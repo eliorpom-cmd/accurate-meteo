@@ -184,7 +184,7 @@ def main():
     res.sort(key=lambda r: -r[1][0])
     n_test = te.sum() // len(LEADS)
     out = ['# Sous-modèle : pluie dans les 2 prochaines heures (tranches de 20 min)\n',
-           f'Station GRENOBLE-CEA-RADOME. Une tranche est pluvieuse à partir de {score.RAIN_SLOT} mm. '
+           f'Station {score.STATION_NOM}. Une tranche est pluvieuse à partir de {score.RAIN_SLOT} mm. '
            f'Test honnête : chaque mois de {TEST_FROM} à {score.END} est prédit par un modèle entraîné sur tous les '
            'autres mois (depuis 2024-02-01). Le seuil de décision est choisi sur les mois d\'entraînement seulement.\n',
            f'{n_test} tranches testées, dont {100 * y[np.isin(months, test_months)].mean():.1f} % pluvieuses. '
@@ -208,7 +208,7 @@ def main():
     out.append('')
     out.append(f'Seuils choisis : variante 1 de {min(th1):.2f} à {max(th1):.2f}, variante 2 de {min(th2):.2f} à {max(th2):.2f}. '
                f'Durée du calcul : {(time.time() - t0) / 60:.0f} min.\n')
-    open(os.path.join(score.ROOT, 'SOUS-MODELE-PLUIE-2H.md'), 'w').write('\n'.join(out))
+    open(os.path.join(score.SORTIE, 'SOUS-MODELE-PLUIE-2H.md'), 'w').write('\n'.join(out))
     print('\n'.join(out))
 
 

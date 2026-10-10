@@ -20,7 +20,7 @@ import figer
 import modeles
 import score
 
-OUT = os.path.join(score.ROOT, 'retro')
+OUT = os.path.join(score.SORTIE, 'retro')
 CATS = ['soleil', 'mitigé', 'couvert', 'pluie']
 JOBS = 6
 
@@ -169,7 +169,7 @@ def main():
     real = np.array([oslots[s] >= score.RAIN_SLOT for s in sorted(pred)])
     report.append(f'| 2 h, tranches de 20 min | réussite pluie % | {figer.csi(hit, real):.1f} | {len(pred)} |')
 
-    open(os.path.join(score.ROOT, 'RETRO.md'), 'w').write('\n'.join(report) + '\n')
+    open(os.path.join(score.SORTIE, 'RETRO.md'), 'w').write('\n'.join(report) + '\n')
     print('\n'.join(report))
 
 

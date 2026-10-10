@@ -14,7 +14,7 @@ import blend
 import modeles
 import score
 
-OUT = os.path.join(score.ROOT, 'modeles')
+OUT = score.MODELES
 SPLIT = date(2025, 10, 1)
 # Recent months weigh more only where it helped (recency.py: J+1 half-days +0.9 point with 12 months;
 # no gain hourly nor at J+3)
@@ -152,7 +152,7 @@ def main():
     single = {m: [None if s not in mslots[m] else mslots[m][s] >= score.RAIN_SLOT for s in keys] for m in models}
     freeze('pluie2h', 'pluie', keys, X, y, single, models, extra=modeles.RAIN_2H_THRESHOLD)
 
-    open(os.path.join(score.ROOT, 'FIGE.md'), 'w').write('\n'.join(REPORT) + '\n')
+    open(os.path.join(score.SORTIE, 'FIGE.md'), 'w').write('\n'.join(REPORT) + '\n')
 
 
 if __name__ == '__main__':

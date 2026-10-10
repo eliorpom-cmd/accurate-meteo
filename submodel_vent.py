@@ -228,7 +228,7 @@ if __name__ == '__main__':
                   f'({n} h, {time.time() - t0:.0f} s)', flush=True)
 
     out = ['# Sous-modèles vent et rafales\n',
-           f'Station GRENOBLE-CEA-RADOME : vent moyen à 10 m (m/s) et rafale maximale de l\'heure (m/s). '
+           f'Station {score.STATION_NOM} : vent moyen à 10 m (m/s) et rafale maximale de l\'heure (m/s). '
            f'Test honnête : chaque mois de {TEST_FROM} à {score.END} est prédit par un modèle entraîné sans ce mois '
            f'(entraînement depuis {score.START}). Toutes les prévisions sont notées sur les mêmes heures.\n',
            'Sous-modèle : gradient boosting (scikit-learn) sur tous les paramètres de tous les modèles, l\'heure, '
@@ -256,5 +256,5 @@ if __name__ == '__main__':
     out.append('## Détail\n')
     out += details
     out.append(f'Durée du calcul : {(time.time() - t_start) / 60:.0f} min.\n')
-    open(os.path.join(score.ROOT, 'SOUS-MODELE-VENT.md'), 'w').write('\n'.join(out))
+    open(os.path.join(score.SORTIE, 'SOUS-MODELE-VENT.md'), 'w').write('\n'.join(out))
     print(f'done in {(time.time() - t_start) / 60:.1f} min')

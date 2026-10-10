@@ -73,4 +73,4 @@ if __name__ == '__main__':
                for m, d in raw.items()}
         evaluate(f'Créneaux matin / après-midi à J+{lead}', fcs, oblocks, out)
 
-    open(score.os.path.join(score.ROOT, 'RECENCE.md'), 'w').write('\n'.join(out))
+    open(score.os.path.join(score.SORTIE, 'RECENCE.md'), 'w').write('\n'.join(out))
