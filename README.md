@@ -4,7 +4,7 @@ A local weather forecast model for Grenoble that learns which weather models are
 
 GRESIL (named after *grésil*, graupel in French, and **Gre**noble) is the model; this repository, Accurate Meteo, is its code.
 
-Most weather apps show one model, or an average. This project scores 27 public weather models against a real weather station over 2.7 years of archived forecasts, then trains GRESIL, a small "mega-model" (gradient boosting), that reads all of them at once and predicts what the station will actually measure. It runs every 15 minutes on GitHub Actions and publishes a JSON file any app can read (see Public API).
+Most weather apps show one model, or an average. This project scores 16 public weather models against a real weather station over 2.7 years of archived forecasts, then trains GRESIL, a small "mega-model" (gradient boosting), that reads all of them at once and predicts what the station will actually measure. It runs every 15 minutes on GitHub Actions and publishes a JSON file any app can read (see Public API).
 
 Built for Grenoble, France. Every setting that ties it to Grenoble is in one place, so it can be pointed at another city that has a station with open data.
 
