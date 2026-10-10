@@ -33,10 +33,11 @@ async function tick(env) {
 const SOURCE = `https://raw.githubusercontent.com/${REPO}/prevision/prevision.json`;
 const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, OPTIONS' };
 const META = {
+  modele: 'GRESIL',
   api_version: 1,
   doc: `https://github.com/${REPO}#public-api`,
   lieu: { nom: 'Grenoble', latitude: 45.2115, longitude: 5.6828, altitude_m: 213 },
-  attribution: 'Accurate Meteo (MIT). Données : Open-Meteo (CC BY 4.0), Météo-France (Licence Ouverte 2.0), EUMETSAT.',
+  attribution: 'GRESIL, Accurate Meteo (MIT). Données : Open-Meteo (CC BY 4.0), Météo-France (Licence Ouverte 2.0), EUMETSAT.',
   usage: 'Libre et sans clé, usage non commercial (condition de l\'offre gratuite Open-Meteo). Citez la source.',
 };
 

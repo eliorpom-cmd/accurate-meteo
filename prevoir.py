@@ -163,7 +163,7 @@ def main(out_path):
     with open(jpath, 'w') as f:
         json.dump(journal, f, separators=(',', ':'))
 
-    out = {'genere_le': now.astimezone(score.PARIS).isoformat(timespec='minutes'),
+    out = {'modele': 'GRESIL', 'genere_le': now.astimezone(score.PARIS).isoformat(timespec='minutes'),
            'lieu': 'Grenoble', 'modeles_absents': missing,
            'deux_heures': tranches, 'heures': heures, 'jours': jours}
     os.makedirs(os.path.dirname(out_path) or '.', exist_ok=True)

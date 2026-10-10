@@ -1,8 +1,10 @@
-# Accurate Meteo
+# GRESIL
 
-A local weather forecast that learns which weather models are right *where you live*, and combines them.
+A local weather forecast model for Grenoble that learns which weather models are right *where you live*, and combines them.
 
-Most weather apps show one model, or an average. This project scores 27 public weather models against a real weather station over 2.7 years of archived forecasts, then trains a small "mega-model" (gradient boosting) that reads all of them at once and predicts what the station will actually measure. It runs every hour on GitHub Actions and publishes a JSON file any app can read.
+GRESIL (named after *grésil*, graupel in French, and **Gre**noble) is the model; this repository, Accurate Meteo, is its code.
+
+Most weather apps show one model, or an average. This project scores 27 public weather models against a real weather station over 2.7 years of archived forecasts, then trains GRESIL, a small "mega-model" (gradient boosting), that reads all of them at once and predicts what the station will actually measure. It runs every 15 minutes on GitHub Actions and publishes a JSON file any app can read (see Public API).
 
 Built for Grenoble, France. Every setting that ties it to Grenoble is in one place, so it can be pointed at another city that has a station with open data.
 
@@ -10,7 +12,7 @@ Built for Grenoble, France. Every setting that ties it to Grenoble is in one pla
 
 The mega-model was trained on data before October 2025, then scored on the following 12 months it had never seen, against the best single weather model on the same cases.
 
-| Forecast | Measure | Mega-model | Best single model |
+| Forecast | Measure | GRESIL | Best single model |
 |---|---|---|---|
 | Next day, hour by hour | sky condition score /100 | **87.9** | 84.8 (ECMWF IFS) |
 | Next day, hour by hour | temperature error | **1.05 °C** | 1.45 °C (ICON-EU) |
@@ -29,7 +31,7 @@ Full tables: `FIGE.md` (frozen models), `RESULTATS.md` (ranking of every model),
 2. **Archived forecasts**: Open-Meteo Previous Runs API (what each model predicted 1 to 7 days before) and Historical Forecast API (first hours of each run, for the 2-hour rain).
 3. **Scoring** (`score.py`): every model on three scales, compared only over the period they all cover.
 4. **Mega-model** (`blend.py`, `figer.py`): scikit-learn `HistGradientBoosting`, one model per variable and lead time (27 in total), validated by leaving one month out. Frozen models are in `modeles/`.
-5. **Live forecast** (`prevoir.py`): fetches the current forecasts of every model in two requests, applies the frozen models, writes `prevision.json`. Runs hourly in `.github/workflows/prevision.yml` and publishes to the `prevision` branch.
+5. **Live forecast** (`prevoir.py`): fetches the current forecasts of every model in two requests, applies the frozen models, writes `prevision.json`. Runs every 15 minutes in `.github/workflows/prevision.yml` and publishes to the `prevision` branch.
 6. **Our own track record** (`retro.py`, `retro/`): what the mega-model would have predicted for every case since February 2024, next to what happened. Live forecasts are also logged hourly on the `journal` branch. Both serve to correct the mega-model on its own errors later.
 
 ## Run it
@@ -79,7 +81,7 @@ The latest forecast, refreshed every 15 minutes, free and without a key:
 GET https://meteo-api.byelior.com/v1/prevision
 ```
 
-- JSON, same fields as `prevision.json` below, plus `api_version`, `lieu` (place and coordinates), `attribution` and `usage`.
+- JSON, same fields as `prevision.json` below, plus `modele` ("GRESIL"), `api_version`, `lieu` (place and coordinates), `attribution` and `usage`.
 - CORS open (`Access-Control-Allow-Origin: *`): call it straight from a web page.
 - Cached 60 s at the edge: polling more often than once a minute gains nothing.
 - Times are local (Europe/Paris) with their offset. `deux_heures` holds 3 hours of 20-minute slots: keep those that start from your own clock, so a forecast computed a few minutes ago still shows the right 2 hours.
