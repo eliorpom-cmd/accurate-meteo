@@ -107,6 +107,27 @@ GET https://meteo-api.byelior.com/v1/prevision
 - Grenoble only. Non-commercial use (a condition of Open-Meteo's free tier), and please credit the source as given in `attribution`.
 - Breaking changes will get a new version path (`/v2/…`).
 
+Example, to paste into any web page (no build step, no key):
+
+```html
+<div id="meteo"></div>
+<script type="module">
+  const p = await (await fetch('https://meteo-api.byelior.com/v1/prevision')).json();
+  const now = Date.now();
+  // current hour: the first forecast hour that has not started yet
+  const h = p.heures.find(x => Date.parse(x.heure) > now);
+  // rain in the next 2 hours: the 20-minute slots not over yet
+  const slots = p.deux_heures.filter(s => Date.parse(s.debut) + 20 * 60000 > now).slice(0, 6);
+  const rain = slots.find(s => s.pluie);
+  document.getElementById('meteo').innerHTML = `
+    <strong>Grenoble : ${Math.round(h.temperature)}°, ${h.condition}</strong><br>
+    ${rain ? `Pluie à partir de ${rain.debut.slice(11, 16)}` : 'Pas de pluie dans les 2 heures'}<br>
+    <small>${p.attribution}</small>`;
+</script>
+```
+
+`condition` is one of `soleil`, `mitigé` (sun and clouds), `couvert` (overcast), `pluie` (rain) or `nuit` (night, sky not forecast).
+
 ## Limits
 
 - Forecast archives start in early 2024: 2.7 years of training, no more.
