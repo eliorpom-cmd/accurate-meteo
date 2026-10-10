@@ -16,4 +16,20 @@ Aucune des deux ne fait mieux que dire « soleil » à chaque heure.
 - L'aéroport est automatique et code « CAVOK » 56 % du temps : pas de nuage sous ~1 500 m, rien sur les nuages plus hauts. Quand le satellite voit un ciel mitigé à Grenoble, l'aéroport annonce « dégagé » 56 % du temps.
 - La nébulosité du satellite d'Open-Meteo est remplie jour et nuit mais ne suit pas le soleil mesuré : elle n'est pas une mesure exploitable ici.
 
-**Conclusion** : pas de modèle de ciel de nuit avec ces sources. Seule piste restante : le masque nuageux EUMETSAT (infrarouge, jour et nuit, pixel de ~4 km, archive depuis 2004), via le Data Store EUMETSAT (compte gratuit à créer, ~23 000 fichiers horaires à découper autour de Grenoble).
+## Masque nuageux EUMETSAT (même jour)
+
+Lu sur le serveur de cartes public d'EUMETSAT (`clm.py`, sans compte, archive depuis 2020) : 5 × 5 pixels autour de Grenoble à chaque mi-heure, nuage oui/non, plus la hauteur du sommet des nuages (codée en couleur, 63 % de l'archive téléchargée).
+
+| Source (de jour, contre le soleil mesuré) | Accord /100 |
+|---|---|
+| Masque, seuils simples (pixel de Grenoble → 25 pixels) | 61 à 74 |
+| Masque, petit modèle appris sur les 25 pixels + mois + heure | 84,2 |
+| Masque + hauteur des nuages, modèle appris | 81,5 à 82,7 (sur 63 % des heures) |
+| Toujours « soleil » | ~79 |
+| **Prévision GRESIL du ciel, heure par heure** | **87,9** |
+
+- Le masque dit « nuage » au-dessus de Grenoble 40 % du temps quand le soleil brille : il compte les voiles fins que la lumière traverse, et les nuages sur les massifs.
+- La hauteur des nuages n'apporte rien de plus.
+- Une « mesure » moins fiable de jour (84) que notre propre prévision (87,9) ne peut pas servir à l'entraîner la nuit, où elle serait en plus moins bonne (infrarouge seul).
+
+**Conclusion** : pas de modèle de ciel de nuit. La nuit reste « nuit » (température, pluie, vent). Piste fermée le 10/10/2026 ; à rouvrir seulement si une station proche se met à mesurer la nébulosité (céilomètre ou caméra de ciel).

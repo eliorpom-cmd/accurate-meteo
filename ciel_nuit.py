@@ -9,6 +9,7 @@ Data: data/ciel_nuit/lfls_metar.csv (Iowa Environmental Mesonet ASOS/METAR archi
 Run: .venv/bin/python ciel_nuit.py
 """
 import csv
+import json
 import os
 from collections import Counter
 from datetime import datetime, timedelta, timezone
@@ -16,6 +17,9 @@ from datetime import datetime, timedelta, timezone
 import score
 
 METAR = os.path.join(score.DATA, 'ciel_nuit', 'lfls_metar.csv')
+CLM = os.path.join(score.DATA, 'ciel_nuit', 'clm_px.json')
+# 5 x 5 cloud mask pixels, row by row from the north-west: Grenoble alone, the 3 x 3 around it, the whole 5 x 5
+ZONES = {'pixel de Grenoble': [12], '3 x 3 pixels (~12 km)': [6, 7, 8, 11, 12, 13, 16, 17, 18], '5 x 5 pixels (~20 km)': list(range(25))}
 OCTAS = {'FEW': 1.5, 'SCT': 3.5, 'BKN': 6, 'OVC': 8, 'VV': 8, 'NSC': 0, 'NCD': 0, 'SKC': 0, 'CLR': 0}
 
 
@@ -67,16 +71,19 @@ def main():
     # undocumented cloud_cover of Open-Meteo's satellite API: filled day and night, origin unknown
     sat = score.api(score.SATELLITE, {'hourly': 'cloud_cover'})
     scc = {score.utc(ts): v for ts, v in zip(sat['hourly']['time'], sat['hourly']['cloud_cover'])}
+    # EUMETSAT cloud mask around Grenoble (clm.py): cloud fraction 0-1, day and night
+    px = {score.utc(k): v for k, v in json.load(open(CLM)).items()} if os.path.exists(CLM) else {}
+    zone = lambda bits, idx: sum(bits[i] == '1' for i in idx) / len(idx)
 
     # daytime, dry hours with a satellite sky (soleil / mitigé / couvert), LFLS and the forecast both present
     rows = []
     for t, o in obs.items():
         if o.get('cat') not in (0, 1, 2):
             continue
-        m, f, c = hour_mean(metar, t), cc.get(t), scc.get(t)
-        if m is None or f is None or c is None:
+        m, f, c, b = hour_mean(metar, t), cc.get(t), scc.get(t), px.get(t)
+        if m is None or f is None or c is None or b is None:
             continue
-        rows.append((t, o['cat'], m, f, c))
+        rows.append((t, o['cat'], m, f, c, *(zone(b, idx) for idx in ZONES.values())))
     print(f'{len(rows)} heures de jour sèches communes ({rows[0][0]:%Y-%m-%d} → {rows[-1][0]:%Y-%m-%d})')
     print('Ciel satellite :', {score.CATS[k]: f'{v / len(rows):.0%}' for k, v in sorted(Counter(r[1] for r in rows).items())})
 
@@ -86,7 +93,8 @@ def main():
     lines = []
     for name, idx, grid in (('METAR LFLS (octas)', 2, [x / 2 for x in range(1, 17)]),
                             ('Prévision Météo-France J-1 (nébulosité %)', 3, list(range(5, 105, 5))),
-                            ('Nébulosité « satellite » Open-Meteo (%)', 4, list(range(5, 105, 5)))):
+                            ('Nébulosité « satellite » Open-Meteo (%)', 4, list(range(5, 105, 5))),
+                            *((f'Masque nuageux EUMETSAT, {z}', 5 + n, [x / 18 for x in range(1, 19)]) for n, z in enumerate(ZONES))):
         th = best_thresholds([(r[idx], r[1]) for r in fit], grid)
         w, e = agreement([(r[idx], r[1]) for r in test], *th)
         lines.append(f'| {name} | {th[0]} / {th[1]} | {w * 100:.1f} | {e:.0%} |')
