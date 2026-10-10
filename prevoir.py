@@ -11,6 +11,7 @@ import joblib
 import numpy as np
 import blend
 import modeles
+import radar
 import score
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -252,6 +253,10 @@ def main(out_path):
                           'temperature': [r1(temp[i]) for i in h48], 'vent_ms': [r1(wind[i]) for i in h48],
                           'rafales_ms': [r1(gust[i]) for i in h48]},
                'jours': jours}
+    # Radar frames of the last 2 hours, recorded once per hour (the journal keeps the hour's first run;
+    # frames overlap from one hour to the next): material for a future radar-based 2-hour rain model
+    if now.minute < 15:
+        journal['radar'] = radar.record()
     jpath = os.path.join(os.path.dirname(out_path) or '.', 'journal', now.strftime('%Y-%m-%dT%HZ') + '.json')
     os.makedirs(os.path.dirname(jpath), exist_ok=True)
     with open(jpath, 'w') as f:
