@@ -90,6 +90,8 @@ The model list (`TREND_MODELS`, `HOURLY_MODELS`, `NOWCAST_MODELS` in `score.py`)
 }
 ```
 
+Night hours (sun below the horizon): `condition` is `"nuit"` (or `"pluie"`) and `probas` is null, because GRESIL learned the sky from measured sunlight, which does not exist at night (tested alternatives: [CIEL-NUIT.md](CIEL-NUIT.md)). They carry instead the raw cloud cover of one weather model, not corrected by GRESIL: `"nebulosite": {"pct": 74, "mot": "couvert", "modele": "icon_eu", "corrigee": false}` (`mot`: `dégagé` under 30 %, `nuageux` up to 70 %, `couvert` above; ICON-EU, the best raw hourly model the day before, then ECMWF IFS beyond its horizon). Temperature, rain and wind stay GRESIL's at night.
+
 `passe` = today's hours already over (from 6 am): the sky measured by satellite and, when the `MF_API_KEY` secret holds a free key from [Météo-France's API portal](https://portail-api.meteofrance.fr) (*Données d'observation*), the station's temperature, rain and wind; otherwise the forecast values. A half-day already over comes back in `jours` with `"passe": true`.
 
 ## Public API

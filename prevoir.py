@@ -18,6 +18,21 @@ import vignette
 ROOT = os.path.dirname(os.path.abspath(__file__))
 LIVE = 'https://api.open-meteo.com/v1/forecast'
 CATS = ['soleil', 'mitigé', 'couvert', 'pluie']
+# At night GRESIL has no sky (it learned from sunlight): the cloud cover of one raw model is relayed instead, uncorrected.
+# ICON-EU = best raw hourly model the day before (RESULTATS.md), then ECMWF IFS (best at 3-7 days) beyond its horizon.
+NUIT_MODELES = ['icon_eu', 'ecmwf_ifs025']
+
+
+def nebulosite(k, fcs):
+    """Raw cloud cover for the hour ending at k: mean of its start and end (instant values), first model that has both."""
+    for m in NUIT_MODELES:
+        f = fcs.get(m, {})
+        a, b = (f.get(t, {}).get('cloud') for t in (k - timedelta(hours=1), k))
+        if a is not None and b is not None:
+            pct = round((a + b) / 2)
+            return {'pct': pct, 'mot': 'dégagé' if pct < 30 else 'nuageux' if pct <= 70 else 'couvert',
+                    'modele': m, 'corrigee': False}
+    return None
 
 
 def get(url):
@@ -203,7 +218,8 @@ def main(out_path):
                        'probas': cond[i]['probas'] if day else None,
                        'pluie_proba': round(rain[i], 2), 'temperature': r1(temp[i]),   # temp[i] = at k - 1 h
                        'vent_kmh': r1(wind[i] * 3.6), 'rafales_kmh': r1(gust[i] * 3.6),
-                       'precision_reduite': (k - now).total_seconds() > 48 * 3600})
+                       'precision_reduite': (k - now).total_seconds() > 48 * 3600,
+                       **({} if up else {'nebulosite': nebulosite(k, fcs)})})
 
     passe = passees(now, fcs, hourly_models)
 
