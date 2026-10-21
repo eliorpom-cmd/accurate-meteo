@@ -18,7 +18,7 @@ import numpy as np
 from sklearn.ensemble import HistGradientBoostingClassifier
 import score
 
-TEST_FROM = date(2025, 10, 1)
+TEST_FROM = score.TEST_FROM
 LEADS = [0, 20, 40, 60, 80, 100]          # minutes between forecast time and slot start
 SLOT = timedelta(minutes=20)
 CTX = ['relative_humidity_2m', 'cloud_cover', 'shortwave_radiation', 'wind_speed_10m', 'wind_gusts_10m',

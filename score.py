@@ -18,7 +18,7 @@ The place (coordinates, stations) comes from ville.json; for another city see RE
 Usage: python3 score.py   (downloads into data/, caches API answers in data/cache/, writes RESULTATS.md)
 """
 import csv, gzip, hashlib, json, math, os, subprocess, time, urllib.error, urllib.request
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -33,13 +33,19 @@ DATA = os.path.join(SORTIE, 'data')
 CACHE = os.path.join(DATA, 'cache')
 MODELES = os.path.join(SORTIE, 'modeles')
 NOM, STATION_NOM = VILLE['nom'], VILLE['station_nom']
+SLUG = VILLE.get('slug') or os.path.basename(SORTIE)  # URL name: meteo.byelior.com/<slug>, <slug>/prevision.json
 STATION = VILLE['station']
 PRESSURE_STATION = VILLE.get('station_pression') or STATION  # sea-level pressure, often measured elsewhere
 DEPT = STATION[:2]                                             # Météo-France files are split by département
 LAT, LON, ELEV = VILLE['latitude'], VILLE['longitude'], VILLE['altitude_m']
-START, END = '2024-02-01', '2026-10-08'  # forecast archives (Previous Runs API) start in early 2024
 # The API is fetched in chunks so a longer period reuses what is already cached
-CHUNKS = [('2024-02-01', '2024-12-31'), ('2025-01-01', '2025-09-30'), ('2025-10-01', '2026-10-08')]
+# Period downloaded, in chunks (forecast archives of the Previous Runs API start in early 2024), and first day of
+# the honest test. A city can override them with "periode": {"tranches": [[start, end], …], "test_depuis": date}.
+_P = VILLE.get('periode', {})
+CHUNKS = [tuple(t) for t in _P.get('tranches', [('2024-02-01', '2024-12-31'), ('2025-01-01', '2025-09-30'),
+                                                ('2025-10-01', '2026-10-08')])]
+START, END = CHUNKS[0][0], CHUNKS[-1][1]
+TEST_FROM = date.fromisoformat(_P.get('test_depuis', '2025-10-01'))
 PARIS = ZoneInfo(VILLE.get('fuseau', 'Europe/Paris'))  # local time (name kept from the first version)
 MF = 'https://meteofrance.s3.sbg.io.cloud.ovh.net/data/synchro_ftp/BASE'
 PREVIOUS = 'https://previous-runs-api.open-meteo.com/v1/forecast'

@@ -20,7 +20,7 @@ import numpy as np
 from sklearn.ensemble import HistGradientBoostingRegressor
 import score
 
-TEST_FROM = date(2025, 10, 1)
+TEST_FROM = score.TEST_FROM
 WINDY = 10.0  # m/s: a "windy hour" for gust detection
 TARGETS = {'vent': 'wind_speed_10m', 'rafales': 'wind_gusts_10m'}
 # Written after reading the results of the run of 09/10/2026 (update them if the data change)

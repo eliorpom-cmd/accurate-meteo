@@ -19,7 +19,7 @@ import numpy as np
 from sklearn.ensemble import HistGradientBoostingRegressor
 import score
 
-TEST_FROM = date(2025, 10, 1)
+TEST_FROM = score.TEST_FROM
 T0 = datetime(2024, 2, 1, tzinfo=timezone.utc)
 T1 = datetime(2026, 10, 9, tzinfo=timezone.utc)
 N = int((T1 - T0).total_seconds() // 3600)

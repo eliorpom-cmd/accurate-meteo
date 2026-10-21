@@ -30,7 +30,16 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - run: python prevoir.py out/prevision.json
+      # Every city with frozen models: ville.json (Grenoble, models in modeles/) and villes/<slug>.json (villes/<slug>/modeles/).
+      # Each one goes to out/<slug>/; Grenoble is also copied to the root, where the public API and older links read it
+      - name: Forecast every city
+        run: |
+          for v in ville.json villes/*.json; do
+            slug=$(VILLE=$v python -c "import os, score; print(score.SLUG if os.path.isdir(score.MODELES) else '')")
+            [ -n "$slug" ] || { echo "$v: no frozen models, skipped"; continue; }
+            VILLE=$v python prevoir.py "out/$slug/prevision.json"
+          done
+          cp out/grenoble/prevision.json out/grenoble/og.png out/
         env:
           # optional: today's past hours measured at the station (Météo-France real-time API); without it, sky only
           MF_API_KEY: ${{ secrets.MF_API_KEY }}
@@ -41,7 +50,7 @@ jobs:
           git init -q -b prevision
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add prevision.json og.png  # og.png = sharing preview; the journal/ folder goes to its own branch below
+          git add prevision.json og.png */prevision.json */og.png  # og.png = sharing preview; journal/ folders go to their own branch below
           git commit -q -m "Prévision du $(date -u +%Y-%m-%dT%H:%MZ)"
           git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" prevision
 
@@ -55,17 +64,21 @@ jobs:
           else
             git init -q -b journal journal-repo
           fi
-          mkdir -p journal-repo/journal
-          mkdir -p journal-repo/historique
-          for f in out/journal/*.json; do   # keep the file already recorded for this hour (cp -n exit codes vary)
-            [ -e "journal-repo/journal/$(basename "$f")" ] || cp "$f" journal-repo/journal/
-            # the public forecast as served this hour, read back by the API (/v1/historique)
-            [ -e "journal-repo/historique/$(basename "$f")" ] || cp out/prevision.json "journal-repo/historique/$(basename "$f")"
+          # Grenoble keeps journal/ and historique/ at the root (as before); another city uses <slug>/journal and <slug>/historique
+          for d in out/*/; do
+            slug=$(basename "$d"); [ -d "$d/journal" ] || continue
+            dest=journal-repo; [ "$slug" = grenoble ] || dest="journal-repo/$slug"
+            mkdir -p "$dest/journal" "$dest/historique"
+            for f in "$d"journal/*.json; do   # keep the file already recorded for this hour (cp -n exit codes vary)
+              [ -e "$dest/journal/$(basename "$f")" ] || cp "$f" "$dest/journal/"
+              # the public forecast as served this hour, read back by the API (/v1/historique)
+              [ -e "$dest/historique/$(basename "$f")" ] || cp "$d/prevision.json" "$dest/historique/$(basename "$f")"
+            done
           done
           cd journal-repo
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add journal historique
+          git add -A
           git diff --cached --quiet && exit 0   # this hour is already recorded
           git commit -q -m "Journal $(date -u +%Y-%m-%dT%HZ)"
           git push -q "$url" journal

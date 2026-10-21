@@ -32,15 +32,21 @@ async function tick(env) {
   return 'lancé';
 }
 
-const SOURCE = `https://raw.githubusercontent.com/${REPO}/prevision/prevision.json`;
-const RAW = `https://raw.githubusercontent.com/${REPO}/journal/historique`;
-const ENDPOINTS = { prevision: '/v1/prevision', historique: '/v1/historique', heure: '/v1/historique/2026-10-10T12Z', avant: '/v1/historique?le=2026-10-09T18:30Z' };
+const SOURCE = `https://raw.githubusercontent.com/${REPO}/prevision`;   // <slug>/prevision.json
+const RAW = `https://raw.githubusercontent.com/${REPO}/journal`;         // historique/ (Grenoble) or <slug>/historique/
+const ENDPOINTS = { prevision: '/v1/prevision', historique: '/v1/historique', heure: '/v1/historique/2026-10-10T12Z', avant: '/v1/historique?le=2026-10-09T18:30Z',
+  autre_ville: '/v1/prevision?ville=neffies', villes: '/v1/villes' };
+// Cities served (?ville=<slug>, Grenoble by default), as in ville.json and villes/<slug>.json (the station's position)
+const LIEUX = {
+  grenoble: { nom: 'Grenoble', latitude: 45.2115, longitude: 5.6828, altitude_m: 213 },
+  neffies: { nom: 'Néffiès', latitude: 43.437667, longitude: 3.400333, altitude_m: 40 },
+};
+const DOSSIER = slug => (slug === 'grenoble' ? 'historique' : `${slug}/historique`);
 const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, OPTIONS' };
 const META = {
   modele: 'GRESIL',
   api_version: 1,
   doc: `https://github.com/${REPO}#public-api`,
-  lieu: { nom: 'Grenoble', latitude: 45.2115, longitude: 5.6828, altitude_m: 213 },
   attribution: 'GRESIL, Accurate Meteo (MIT). Données : Open-Meteo (CC BY 4.0), Météo-France (Licence Ouverte 2.0), EUMETSAT.',
   usage: 'Libre et sans clé, usage non commercial (condition de l\'offre gratuite Open-Meteo). Citez la source.',
 };
@@ -54,13 +60,13 @@ function json(body, status = 200, extra = {}) {
 
 // Hours recorded, oldest first ("2026-10-10T12Z"), from the git tree of the journal branch.
 // Authenticated call (5 000/h instead of 60/h per shared Cloudflare IP), cached 5 min at the edge.
-async function heures(env, ctx) {
-  const cle = new Request('https://cache.local/historique-liste');
+async function heures(env, ctx, slug) {
+  const cle = new Request(`https://cache.local/historique-liste/${slug}`);
   const enCache = await caches.default.match(cle);
   if (enCache) return enCache.json();
-  let r = await gh(env, '/git/trees/journal:historique');
+  let r = await gh(env, `/git/trees/journal:${DOSSIER(slug)}`);
   // the token is scoped to Actions: if GitHub refuses it for contents, fall back to an anonymous call (public repo)
-  if (r.status === 401 || r.status === 403) r = await fetch(`https://api.github.com/repos/${REPO}/git/trees/journal:historique`,
+  if (r.status === 401 || r.status === 403) r = await fetch(`https://api.github.com/repos/${REPO}/git/trees/journal:${DOSSIER(slug)}`,
     { headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'accurate-meteo-horloge' } });
   if (r.status === 404) return [];
   if (!r.ok) throw new Error(`GitHub ${r.status}`);
@@ -81,24 +87,24 @@ function cleHeure(texte) {
   return Number.isNaN(t) ? null : new Date(t).toISOString().slice(0, 13) + 'Z';
 }
 
-async function historique(url, env, ctx) {
+async function historique(url, env, ctx, slug, meta) {
   const exacte = url.pathname.match(/^\/v1\/historique\/(\d{4}-\d\d-\d\dT\d\dZ)$/);
   if (!exacte && url.pathname !== '/v1/historique') return json({ erreur: 'Introuvable', endpoints: ENDPOINTS }, 404);
-  const liste = exacte ? null : await heures(env, ctx);
+  const liste = exacte ? null : await heures(env, ctx, slug);
   let heure = exacte && exacte[1];
   if (!exacte) {
     const le = url.searchParams.get('le');
-    if (!le) return json({ ...META, heures: liste, endpoints: ENDPOINTS }, 200, { 'Cache-Control': 'public, max-age=300' });
+    if (!le) return json({ ...meta, heures: liste, endpoints: ENDPOINTS }, 200, { 'Cache-Control': 'public, max-age=300' });
     const cible = cleHeure(le);
     if (!cible) return json({ erreur: `Date illisible : ${le}. Exemple : 2026-10-09T18:30Z` }, 400);
     heure = liste.filter(h => h <= cible).pop();
     if (!heure) return json({ erreur: `Rien d'enregistré avant ${le}.`, premiere_heure: liste[0] || null }, 404);
   }
   // a recorded hour never changes: cache it a day
-  const r = await fetch(`${RAW}/${heure}.json`, { cf: { cacheTtl: 86400, cacheEverything: true } });
+  const r = await fetch(`${RAW}/${DOSSIER(slug)}/${heure}.json`, { cf: { cacheTtl: 86400, cacheEverything: true } });
   if (r.status === 404) return json({ erreur: `Aucune prévision enregistrée pour ${heure}.`, liste: '/v1/historique' }, 404);
   if (!r.ok) return json({ erreur: `Source indisponible (${r.status})` }, 502);
-  return json({ ...(await r.json()), ...META, enregistree: heure }, 200, { 'Cache-Control': `public, max-age=${exacte ? 86400 : 300}` });
+  return json({ ...(await r.json()), ...meta, enregistree: heure }, 200, { 'Cache-Control': `public, max-age=${exacte ? 86400 : 300}` });
 }
 
 async function api(request, env, ctx) {
@@ -108,15 +114,21 @@ async function api(request, env, ctx) {
   if (url.pathname === '/' || url.pathname === '/v1') {
     return json({ ...META, endpoints: ENDPOINTS }, 200, { 'Cache-Control': 'public, max-age=3600' });
   }
+  if (url.pathname === '/v1/villes') {
+    return json({ villes: Object.entries(LIEUX).map(([slug, l]) => ({ slug, ...l })) }, 200, { 'Cache-Control': 'public, max-age=3600' });
+  }
+  const slug = url.searchParams.get('ville') || 'grenoble';
+  if (!LIEUX[slug]) return json({ erreur: `Ville inconnue : ${slug}`, villes: '/v1/villes' }, 404);
+  const meta = { ...META, lieu: LIEUX[slug] };
   if (url.pathname.startsWith('/v1/historique')) {
-    try { return await historique(url, env, ctx); }
+    try { return await historique(url, env, ctx, slug, meta); }
     catch (e) { return json({ erreur: `Source indisponible (${e.message})` }, 502); }
   }
   if (url.pathname !== '/v1/prevision') return json({ erreur: 'Introuvable', endpoints: ENDPOINTS }, 404);
-  const r = await fetch(SOURCE, { cf: { cacheTtl: 60, cacheEverything: true } });
+  const r = await fetch(`${SOURCE}/${slug}/prevision.json`, { cf: { cacheTtl: 60, cacheEverything: true } });
   if (!r.ok) return json({ erreur: `Source indisponible (${r.status})` }, 502);
   const prevision = await r.json();
-  return json({ ...prevision, ...META }, 200, { 'Cache-Control': 'public, max-age=60' });
+  return json({ ...prevision, ...meta }, 200, { 'Cache-Control': 'public, max-age=60' });
 }
 
 export default {

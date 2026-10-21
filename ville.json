@@ -1,5 +1,6 @@
 {
   "nom": "Grenoble",
+  "slug": "grenoble",
   "latitude": 45.2115,
   "longitude": 5.682833,
   "altitude_m": 213,

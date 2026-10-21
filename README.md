@@ -66,7 +66,9 @@ Anyone in France can train the same model for their own place. The location live
 
 2. Describe the city: copy `ville.json` to `villes/<city>.json` and fill it in (see `villes/lyon.json`).
 
-3. Rebuild with `VILLE` set (about a day of Open-Meteo's free quota; results go to `villes/<city>/`):
+   Optional: a shorter period, `"periode": {"tranches": [["2025-04-01", "2025-12-31"], ["2026-01-01", "2026-10-20"]], "test_depuis": "2026-04-01"}` (download chunks, then the first day of the honest test). On Grenoble, 1 year of data scored as well as 2.7 years, for a third of the quota.
+
+3. Rebuild with `VILLE` set (about a day of Open-Meteo's free quota with the default period; results go to `villes/<city>/`):
 
    ```sh
    export VILLE=villes/lyon.json
@@ -106,7 +108,7 @@ GET https://meteo-api.byelior.com/v1/prevision
 - CORS open (`Access-Control-Allow-Origin: *`): call it straight from a web page.
 - Cached 60 s at the edge: polling more often than once a minute gains nothing.
 - Times are local (Europe/Paris) with their offset. Each hour in `heures` and `passe` is labelled by its **start**: `"19:00"` = 19:00 to 20:00 (sky, rain probability, gusts over that hour; temperature and wind at 19:00). Before 10 October 2026, 14:30 Paris time, hours were labelled by their end; `/v1/historique` entries from before that keep the old labels. `deux_heures` holds 3 hours of 20-minute slots: keep those that start from your own clock, so a forecast computed a few minutes ago still shows the right 2 hours.
-- Grenoble only. Non-commercial use (a condition of Open-Meteo's free tier), and please credit the source as given in `attribution`.
+- Grenoble by default; another city with `?ville=<slug>` on `/v1/prevision` and `/v1/historique` (e.g. `?ville=neffies`), list at `/v1/villes`. Non-commercial use (a condition of Open-Meteo's free tier), and please credit the source as given in `attribution`.
 - Breaking changes will get a new version path (`/v2/…`).
 
 ### Past forecasts

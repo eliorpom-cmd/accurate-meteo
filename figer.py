@@ -15,7 +15,7 @@ import modeles
 import score
 
 OUT = score.MODELES
-SPLIT = date(2025, 10, 1)
+SPLIT = score.TEST_FROM
 # Recent months weigh more only where it helped (recency.py: J+1 half-days +0.9 point with 12 months;
 # no gain hourly nor at J+3)
 BLOCK_HALF_LIFE = {1: 12}

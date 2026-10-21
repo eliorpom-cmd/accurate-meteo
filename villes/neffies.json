@@ -1,0 +1,23 @@
+{
+  "nom": "Néffiès",
+  "latitude": 43.437667,
+  "longitude": 3.400333,
+  "altitude_m": 40,
+  "station": "34311001",
+  "station_nom": "PEZENAS-TOURBES",
+  "station_pression": "34209002",
+  "fuseau": "Europe/Paris",
+  "periode": {
+    "tranches": [
+      [
+        "2025-04-01",
+        "2025-12-31"
+      ],
+      [
+        "2026-01-01",
+        "2026-10-20"
+      ]
+    ],
+    "test_depuis": "2026-04-01"
+  }
+}

@@ -147,7 +147,7 @@ def draw(prev, out_path):
     title, small = font('HostGrotesk.ttf', 64, [700]), font('HostGrotesk.ttf', 24, [500])
     name, temp = font('HostGrotesk.ttf', 24, [700]), font('HostGrotesk.ttf', 30, [500])
     made = datetime.fromisoformat(prev['genere_le'])
-    d.text((56 * K, 52 * K), 'Météo Grenoble', font=title, fill=INK)
+    d.text((56 * K, 52 * K), 'Météo ' + prev.get('ville', {}).get('nom', 'Grenoble'), font=title, fill=INK)
     badge(im, (W - 56 - 96) * K, 48 * K, 96 * K)
     d.text((58 * K, 136 * K), f"Prévision du {JOURS[made.weekday()].lower()} {made.day} {MOIS[made.month - 1]}, "
            f"{made.hour} h {made.minute:02d}", font=small, fill=DIM)
