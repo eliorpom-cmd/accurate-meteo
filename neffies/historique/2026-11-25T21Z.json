@@ -1,0 +1,3040 @@
+{
+ "modele": "GRESIL",
+ "ville": {
+  "slug": "neffies",
+  "nom": "Néffiès"
+ },
+ "genere_le": "2026-11-25T22:01+01:00",
+ "lieu": "Néffiès",
+ "modeles_absents": [],
+ "deux_heures": [
+  {
+   "debut": "2026-11-25T22:00+01:00",
+   "pluie": false,
+   "pluie_proba": 0.0
+  },
+  {
+   "debut": "2026-11-25T22:20+01:00",
+   "pluie": false,
+   "pluie_proba": 0.0
+  },
+  {
+   "debut": "2026-11-25T22:40+01:00",
+   "pluie": false,
+   "pluie_proba": 0.0
+  },
+  {
+   "debut": "2026-11-25T23:00+01:00",
+   "pluie": false,
+   "pluie_proba": 0.0
+  },
+  {
+   "debut": "2026-11-25T23:20+01:00",
+   "pluie": false,
+   "pluie_proba": 0.0
+  },
+  {
+   "debut": "2026-11-25T23:40+01:00",
+   "pluie": false,
+   "pluie_proba": 0.0
+  },
+  {
+   "debut": "2026-11-26T00:00+01:00",
+   "pluie": false,
+   "pluie_proba": 0.0
+  },
+  {
+   "debut": "2026-11-26T00:20+01:00",
+   "pluie": false,
+   "pluie_proba": 0.0
+  },
+  {
+   "debut": "2026-11-26T00:40+01:00",
+   "pluie": false,
+   "pluie_proba": 0.0
+  }
+ ],
+ "passe": [
+  {
+   "heure": "2026-11-25T06:00+01:00",
+   "condition": "nuit",
+   "temperature": 10.6,
+   "pluie_mm": null,
+   "vent_kmh": 5.3,
+   "rafales_kmh": 11.7,
+   "ratio": null,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T07:00+01:00",
+   "condition": "nuit",
+   "temperature": 10.3,
+   "pluie_mm": null,
+   "vent_kmh": 4.9,
+   "rafales_kmh": 12.8,
+   "ratio": null,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T08:00+01:00",
+   "condition": "soleil",
+   "temperature": 10.3,
+   "pluie_mm": null,
+   "vent_kmh": 4.2,
+   "rafales_kmh": 15.7,
+   "ratio": null,
+   "mesure": {
+    "ciel": false,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T09:00+01:00",
+   "condition": "couvert",
+   "temperature": 10.8,
+   "pluie_mm": null,
+   "vent_kmh": 5.2,
+   "rafales_kmh": 15.6,
+   "ratio": 0.3,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T10:00+01:00",
+   "condition": "mitigé",
+   "temperature": 11.5,
+   "pluie_mm": null,
+   "vent_kmh": 6.6,
+   "rafales_kmh": 15.2,
+   "ratio": 0.41,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T11:00+01:00",
+   "condition": "mitigé",
+   "temperature": 12.1,
+   "pluie_mm": null,
+   "vent_kmh": 6.3,
+   "rafales_kmh": 19.5,
+   "ratio": 0.46,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T12:00+01:00",
+   "condition": "mitigé",
+   "temperature": 13.1,
+   "pluie_mm": null,
+   "vent_kmh": 7.7,
+   "rafales_kmh": 19.0,
+   "ratio": 0.58,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T13:00+01:00",
+   "condition": "mitigé",
+   "temperature": 13.9,
+   "pluie_mm": null,
+   "vent_kmh": 7.6,
+   "rafales_kmh": 20.1,
+   "ratio": 0.68,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T14:00+01:00",
+   "condition": "soleil",
+   "temperature": 13.9,
+   "pluie_mm": null,
+   "vent_kmh": 8.3,
+   "rafales_kmh": 21.4,
+   "ratio": 0.79,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T15:00+01:00",
+   "condition": "soleil",
+   "temperature": 14.2,
+   "pluie_mm": null,
+   "vent_kmh": 8.5,
+   "rafales_kmh": 18.6,
+   "ratio": 0.85,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T16:00+01:00",
+   "condition": "soleil",
+   "temperature": 13.9,
+   "pluie_mm": null,
+   "vent_kmh": 7.5,
+   "rafales_kmh": 20.7,
+   "ratio": null,
+   "mesure": {
+    "ciel": false,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T17:00+01:00",
+   "condition": "nuit",
+   "temperature": 13.1,
+   "pluie_mm": null,
+   "vent_kmh": 8.9,
+   "rafales_kmh": 20.9,
+   "ratio": null,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T18:00+01:00",
+   "condition": "nuit",
+   "temperature": 12.2,
+   "pluie_mm": null,
+   "vent_kmh": 8.6,
+   "rafales_kmh": 24.3,
+   "ratio": null,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T19:00+01:00",
+   "condition": "nuit",
+   "temperature": 11.4,
+   "pluie_mm": null,
+   "vent_kmh": 11.2,
+   "rafales_kmh": 25.5,
+   "ratio": null,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T20:00+01:00",
+   "condition": "nuit",
+   "temperature": 10.8,
+   "pluie_mm": null,
+   "vent_kmh": 10.7,
+   "rafales_kmh": 23.6,
+   "ratio": null,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  },
+  {
+   "heure": "2026-11-25T21:00+01:00",
+   "condition": "nuit",
+   "temperature": 10.5,
+   "pluie_mm": null,
+   "vent_kmh": 9.1,
+   "rafales_kmh": 20.6,
+   "ratio": null,
+   "mesure": {
+    "ciel": true,
+    "station": false
+   }
+  }
+ ],
+ "heures": [
+  {
+   "heure": "2026-11-25T22:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.8,
+   "vent_kmh": 8.6,
+   "rafales_kmh": 22.5,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 40,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-25T23:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.5,
+   "vent_kmh": 9.6,
+   "rafales_kmh": 22.8,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 78,
+    "mot": "couvert",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T00:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.5,
+   "vent_kmh": 9.4,
+   "rafales_kmh": 23.9,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 100,
+    "mot": "couvert",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T01:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.2,
+   "vent_kmh": 9.3,
+   "rafales_kmh": 25.6,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 60,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T02:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.4,
+   "vent_kmh": 10.8,
+   "rafales_kmh": 24.9,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 10,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T03:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.4,
+   "vent_kmh": 11.4,
+   "rafales_kmh": 24.9,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T04:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.4,
+   "vent_kmh": 11.6,
+   "rafales_kmh": 25.3,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T05:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.3,
+   "vent_kmh": 11.9,
+   "rafales_kmh": 24.6,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 3,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T06:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 8.7,
+   "vent_kmh": 11.6,
+   "rafales_kmh": 25.1,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 6,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T07:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 8.9,
+   "vent_kmh": 10.9,
+   "rafales_kmh": 24.2,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 14,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T08:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 8.5,
+   "vent_kmh": 10.3,
+   "rafales_kmh": 25.2,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-26T09:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.96,
+    "mitigé": 0.04,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 9.3,
+   "vent_kmh": 10.6,
+   "rafales_kmh": 26.5,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-26T10:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.98,
+    "mitigé": 0.02,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 12.0,
+   "vent_kmh": 12.4,
+   "rafales_kmh": 28.5,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-26T11:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 13.1,
+   "vent_kmh": 13.0,
+   "rafales_kmh": 32.0,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-26T12:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.99,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.01
+   },
+   "pluie_proba": 0.01,
+   "temperature": 14.1,
+   "vent_kmh": 15.3,
+   "rafales_kmh": 41.3,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-26T13:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 14.9,
+   "vent_kmh": 21.8,
+   "rafales_kmh": 44.4,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-26T14:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.99,
+    "mitigé": 0.01,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 14.7,
+   "vent_kmh": 22.2,
+   "rafales_kmh": 46.8,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-26T15:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.99,
+    "mitigé": 0.01,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 14.6,
+   "vent_kmh": 24.5,
+   "rafales_kmh": 45.6,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-26T16:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 14.1,
+   "vent_kmh": 21.3,
+   "rafales_kmh": 39.7,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-26T17:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 12.7,
+   "vent_kmh": 18.8,
+   "rafales_kmh": 35.8,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 13,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T18:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 12.0,
+   "vent_kmh": 15.7,
+   "rafales_kmh": 32.3,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 28,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T19:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 11.2,
+   "vent_kmh": 14.1,
+   "rafales_kmh": 33.0,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 30,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T20:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 10.9,
+   "vent_kmh": 14.7,
+   "rafales_kmh": 31.0,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 30,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T21:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 10.4,
+   "vent_kmh": 13.7,
+   "rafales_kmh": 29.7,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 32,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T22:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 10.0,
+   "vent_kmh": 14.1,
+   "rafales_kmh": 29.7,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 32,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-26T23:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.6,
+   "vent_kmh": 11.5,
+   "rafales_kmh": 26.4,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 36,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T00:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.4,
+   "vent_kmh": 10.9,
+   "rafales_kmh": 25.2,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 23,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T01:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.4,
+   "vent_kmh": 10.9,
+   "rafales_kmh": 24.6,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 4,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T02:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.1,
+   "vent_kmh": 12.0,
+   "rafales_kmh": 25.6,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T03:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 8.6,
+   "vent_kmh": 11.8,
+   "rafales_kmh": 26.9,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T04:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 8.3,
+   "vent_kmh": 11.8,
+   "rafales_kmh": 25.4,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T05:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 8.3,
+   "vent_kmh": 11.7,
+   "rafales_kmh": 24.8,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 1,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T06:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 8.1,
+   "vent_kmh": 12.0,
+   "rafales_kmh": 27.0,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 1,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T07:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 8.4,
+   "vent_kmh": 12.8,
+   "rafales_kmh": 26.0,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 3,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T08:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 8.4,
+   "vent_kmh": 11.9,
+   "rafales_kmh": 26.3,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-27T09:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.99,
+    "mitigé": 0.01,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 9.3,
+   "vent_kmh": 11.4,
+   "rafales_kmh": 30.5,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-27T10:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 10.7,
+   "vent_kmh": 14.2,
+   "rafales_kmh": 35.3,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-27T11:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 12.0,
+   "vent_kmh": 18.6,
+   "rafales_kmh": 39.5,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-27T12:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 12.9,
+   "vent_kmh": 21.4,
+   "rafales_kmh": 42.7,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-27T13:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 13.5,
+   "vent_kmh": 22.5,
+   "rafales_kmh": 42.9,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-27T14:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 14.1,
+   "vent_kmh": 23.8,
+   "rafales_kmh": 42.6,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-27T15:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 14.0,
+   "vent_kmh": 23.4,
+   "rafales_kmh": 39.9,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-27T16:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 13.4,
+   "vent_kmh": 19.6,
+   "rafales_kmh": 33.9,
+   "precision_reduite": false
+  },
+  {
+   "heure": "2026-11-27T17:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 12.1,
+   "vent_kmh": 15.5,
+   "rafales_kmh": 29.7,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T18:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 10.9,
+   "vent_kmh": 13.8,
+   "rafales_kmh": 28.1,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T19:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.7,
+   "vent_kmh": 12.3,
+   "rafales_kmh": 21.6,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T20:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.9,
+   "vent_kmh": 10.2,
+   "rafales_kmh": 20.4,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T21:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.5,
+   "vent_kmh": 8.9,
+   "rafales_kmh": 19.1,
+   "precision_reduite": false,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T22:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.3,
+   "vent_kmh": 8.7,
+   "rafales_kmh": 19.1,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-27T23:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 8.6,
+   "vent_kmh": 8.2,
+   "rafales_kmh": 17.4,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T00:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 8.5,
+   "vent_kmh": 7.6,
+   "rafales_kmh": 17.7,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T01:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 8.0,
+   "vent_kmh": 6.8,
+   "rafales_kmh": 16.4,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T02:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 7.2,
+   "vent_kmh": 6.4,
+   "rafales_kmh": 14.7,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T03:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 7.0,
+   "vent_kmh": 5.8,
+   "rafales_kmh": 13.6,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T04:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 6.9,
+   "vent_kmh": 5.5,
+   "rafales_kmh": 10.0,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T05:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.02,
+   "temperature": 6.7,
+   "vent_kmh": 3.6,
+   "rafales_kmh": 6.8,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 12,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T06:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.03,
+   "temperature": 5.4,
+   "vent_kmh": 3.3,
+   "rafales_kmh": 6.4,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 28,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T07:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 4.8,
+   "vent_kmh": 3.5,
+   "rafales_kmh": 7.9,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 25,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T08:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 5.7,
+   "vent_kmh": 3.3,
+   "rafales_kmh": 8.2,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-28T09:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 6.0,
+   "vent_kmh": 3.2,
+   "rafales_kmh": 9.9,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-28T10:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 7.4,
+   "vent_kmh": 4.3,
+   "rafales_kmh": 10.3,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-28T11:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 9.1,
+   "vent_kmh": 4.4,
+   "rafales_kmh": 10.8,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-28T12:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 10.5,
+   "vent_kmh": 4.3,
+   "rafales_kmh": 11.6,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-28T13:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 11.5,
+   "vent_kmh": 5.1,
+   "rafales_kmh": 11.1,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-28T14:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 12.2,
+   "vent_kmh": 4.7,
+   "rafales_kmh": 11.0,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-28T15:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 12.4,
+   "vent_kmh": 5.1,
+   "rafales_kmh": 10.6,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-28T16:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 12.2,
+   "vent_kmh": 5.0,
+   "rafales_kmh": 9.1,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-28T17:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 10.2,
+   "vent_kmh": 4.2,
+   "rafales_kmh": 9.0,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T18:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.4,
+   "vent_kmh": 3.0,
+   "rafales_kmh": 8.7,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T19:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 7.8,
+   "vent_kmh": 3.4,
+   "rafales_kmh": 7.7,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 6,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T20:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 7.1,
+   "vent_kmh": 3.3,
+   "rafales_kmh": 8.6,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 20,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T21:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 6.2,
+   "vent_kmh": 3.4,
+   "rafales_kmh": 8.8,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 32,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T22:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 6.3,
+   "vent_kmh": 3.8,
+   "rafales_kmh": 9.1,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 38,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-28T23:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 6.3,
+   "vent_kmh": 4.0,
+   "rafales_kmh": 9.2,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 36,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T00:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 6.1,
+   "vent_kmh": 4.2,
+   "rafales_kmh": 8.9,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 35,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T01:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 6.1,
+   "vent_kmh": 4.1,
+   "rafales_kmh": 9.1,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 32,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T02:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 6.3,
+   "vent_kmh": 4.2,
+   "rafales_kmh": 8.8,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 27,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T03:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 6.2,
+   "vent_kmh": 4.2,
+   "rafales_kmh": 10.0,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 22,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T04:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 6.4,
+   "vent_kmh": 4.6,
+   "rafales_kmh": 10.7,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 21,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T05:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.02,
+   "temperature": 6.7,
+   "vent_kmh": 4.7,
+   "rafales_kmh": 11.3,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 22,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T06:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.02,
+   "temperature": 6.4,
+   "vent_kmh": 5.4,
+   "rafales_kmh": 12.0,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 24,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T07:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.02,
+   "temperature": 7.0,
+   "vent_kmh": 5.5,
+   "rafales_kmh": 11.6,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 34,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T08:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 7.4,
+   "vent_kmh": 5.2,
+   "rafales_kmh": 10.6,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-29T09:00+01:00",
+   "condition": "mitigé",
+   "probas": {
+    "soleil": 0.3,
+    "mitigé": 0.69,
+    "couvert": 0.01,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 8.2,
+   "vent_kmh": 5.1,
+   "rafales_kmh": 13.6,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-29T10:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.56,
+    "mitigé": 0.43,
+    "couvert": 0.01,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 8.8,
+   "vent_kmh": 6.0,
+   "rafales_kmh": 12.8,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-29T11:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.57,
+    "mitigé": 0.42,
+    "couvert": 0.01,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 10.0,
+   "vent_kmh": 5.2,
+   "rafales_kmh": 13.9,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-29T12:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.63,
+    "mitigé": 0.37,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 11.3,
+   "vent_kmh": 5.6,
+   "rafales_kmh": 12.7,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-29T13:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.76,
+    "mitigé": 0.24,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 12.4,
+   "vent_kmh": 5.0,
+   "rafales_kmh": 13.2,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-29T14:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.77,
+    "mitigé": 0.23,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 12.8,
+   "vent_kmh": 5.8,
+   "rafales_kmh": 14.9,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-29T15:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.8,
+    "mitigé": 0.2,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 12.9,
+   "vent_kmh": 6.7,
+   "rafales_kmh": 14.9,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-29T16:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 12.4,
+   "vent_kmh": 6.3,
+   "rafales_kmh": 13.5,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-29T17:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 11.4,
+   "vent_kmh": 5.5,
+   "rafales_kmh": 11.5,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 86,
+    "mot": "couvert",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T18:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 11.0,
+   "vent_kmh": 5.2,
+   "rafales_kmh": 10.0,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 90,
+    "mot": "couvert",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T19:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 10.1,
+   "vent_kmh": 4.6,
+   "rafales_kmh": 9.3,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 86,
+    "mot": "couvert",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T20:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 10.5,
+   "vent_kmh": 4.3,
+   "rafales_kmh": 9.5,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 74,
+    "mot": "couvert",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T21:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 10.1,
+   "vent_kmh": 4.4,
+   "rafales_kmh": 10.7,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 62,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T22:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 10.0,
+   "vent_kmh": 4.6,
+   "rafales_kmh": 12.3,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 46,
+    "mot": "nuageux",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-29T23:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 10.1,
+   "vent_kmh": 4.9,
+   "rafales_kmh": 13.8,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 28,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T00:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.8,
+   "vent_kmh": 5.8,
+   "rafales_kmh": 15.3,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 9,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T01:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.7,
+   "vent_kmh": 6.1,
+   "rafales_kmh": 16.0,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T02:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.9,
+   "vent_kmh": 6.3,
+   "rafales_kmh": 16.6,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T03:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.9,
+   "vent_kmh": 6.2,
+   "rafales_kmh": 16.8,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T04:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.8,
+   "vent_kmh": 5.9,
+   "rafales_kmh": 15.7,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T05:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.0,
+   "vent_kmh": 5.9,
+   "rafales_kmh": 14.3,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T06:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 8.9,
+   "vent_kmh": 5.8,
+   "rafales_kmh": 12.9,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T07:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 8.9,
+   "vent_kmh": 5.3,
+   "rafales_kmh": 12.7,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "icon_eu",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T08:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.0,
+   "temperature": 9.5,
+   "vent_kmh": 5.0,
+   "rafales_kmh": 11.8,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-30T09:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 10.3,
+   "vent_kmh": 4.6,
+   "rafales_kmh": 12.2,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-30T10:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 12.1,
+   "vent_kmh": 5.3,
+   "rafales_kmh": 13.2,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-30T11:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 12.6,
+   "vent_kmh": 5.2,
+   "rafales_kmh": 14.4,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-30T12:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 13.7,
+   "vent_kmh": 4.8,
+   "rafales_kmh": 15.1,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-30T13:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 14.0,
+   "vent_kmh": 5.3,
+   "rafales_kmh": 14.8,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-30T14:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 14.1,
+   "vent_kmh": 5.9,
+   "rafales_kmh": 13.3,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-30T15:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 1.0,
+    "mitigé": 0.0,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 14.0,
+   "vent_kmh": 4.9,
+   "rafales_kmh": 13.8,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-30T16:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 13.8,
+   "vent_kmh": 5.7,
+   "rafales_kmh": 12.7,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-11-30T17:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 12.7,
+   "vent_kmh": 5.7,
+   "rafales_kmh": 13.5,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 3,
+    "mot": "dégagé",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T18:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 11.8,
+   "vent_kmh": 5.8,
+   "rafales_kmh": 12.9,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 4,
+    "mot": "dégagé",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T19:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 10.8,
+   "vent_kmh": 5.6,
+   "rafales_kmh": 14.9,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 4,
+    "mot": "dégagé",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T20:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 10.1,
+   "vent_kmh": 7.1,
+   "rafales_kmh": 14.0,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 2,
+    "mot": "dégagé",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T21:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 10.0,
+   "vent_kmh": 6.1,
+   "rafales_kmh": 13.2,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 0,
+    "mot": "dégagé",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T22:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.6,
+   "vent_kmh": 5.7,
+   "rafales_kmh": 13.2,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 1,
+    "mot": "dégagé",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-11-30T23:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.4,
+   "vent_kmh": 5.7,
+   "rafales_kmh": 13.6,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 4,
+    "mot": "dégagé",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T00:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.1,
+   "vent_kmh": 5.9,
+   "rafales_kmh": 12.3,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 10,
+    "mot": "dégagé",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T01:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.1,
+   "vent_kmh": 5.9,
+   "rafales_kmh": 12.4,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 18,
+    "mot": "dégagé",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T02:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.2,
+   "vent_kmh": 5.8,
+   "rafales_kmh": 12.6,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 30,
+    "mot": "nuageux",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T03:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.2,
+   "vent_kmh": 5.8,
+   "rafales_kmh": 13.1,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 44,
+    "mot": "nuageux",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T04:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.2,
+   "vent_kmh": 5.7,
+   "rafales_kmh": 13.0,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 60,
+    "mot": "nuageux",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T05:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.2,
+   "vent_kmh": 5.7,
+   "rafales_kmh": 12.7,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 78,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T06:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.2,
+   "vent_kmh": 5.7,
+   "rafales_kmh": 12.8,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 94,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T07:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.2,
+   "vent_kmh": 5.7,
+   "rafales_kmh": 12.3,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 100,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T08:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.3,
+   "vent_kmh": 5.8,
+   "rafales_kmh": 12.2,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-01T09:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.92,
+    "mitigé": 0.08,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 9.9,
+   "vent_kmh": 5.8,
+   "rafales_kmh": 12.8,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-01T10:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.95,
+    "mitigé": 0.05,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 10.9,
+   "vent_kmh": 5.5,
+   "rafales_kmh": 13.4,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-01T11:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.96,
+    "mitigé": 0.04,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 11.5,
+   "vent_kmh": 5.5,
+   "rafales_kmh": 14.2,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-01T12:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.97,
+    "mitigé": 0.03,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 12.2,
+   "vent_kmh": 5.5,
+   "rafales_kmh": 14.3,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-01T13:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.97,
+    "mitigé": 0.03,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 13.0,
+   "vent_kmh": 6.2,
+   "rafales_kmh": 14.9,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-01T14:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.97,
+    "mitigé": 0.03,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.0,
+   "temperature": 14.0,
+   "vent_kmh": 7.0,
+   "rafales_kmh": 15.3,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-01T15:00+01:00",
+   "condition": "soleil",
+   "probas": {
+    "soleil": 0.94,
+    "mitigé": 0.06,
+    "couvert": 0.0,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.01,
+   "temperature": 13.9,
+   "vent_kmh": 7.1,
+   "rafales_kmh": 15.4,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-01T16:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 12.4,
+   "vent_kmh": 6.8,
+   "rafales_kmh": 14.1,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-01T17:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 11.1,
+   "vent_kmh": 6.2,
+   "rafales_kmh": 13.4,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 87,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T18:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 10.7,
+   "vent_kmh": 5.9,
+   "rafales_kmh": 12.7,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 92,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T19:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 10.0,
+   "vent_kmh": 6.0,
+   "rafales_kmh": 12.7,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 94,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T20:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.7,
+   "vent_kmh": 6.0,
+   "rafales_kmh": 13.0,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 92,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T21:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.6,
+   "vent_kmh": 5.9,
+   "rafales_kmh": 12.9,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 90,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T22:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.6,
+   "vent_kmh": 5.7,
+   "rafales_kmh": 12.9,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 86,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-01T23:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.6,
+   "vent_kmh": 5.7,
+   "rafales_kmh": 13.5,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 83,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T00:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.4,
+   "vent_kmh": 5.8,
+   "rafales_kmh": 13.8,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 80,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T01:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.4,
+   "vent_kmh": 5.7,
+   "rafales_kmh": 13.7,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 81,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T02:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.4,
+   "vent_kmh": 6.0,
+   "rafales_kmh": 13.6,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 84,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T03:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.4,
+   "vent_kmh": 6.1,
+   "rafales_kmh": 13.5,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 87,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T04:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.4,
+   "vent_kmh": 6.3,
+   "rafales_kmh": 14.1,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 91,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T05:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.4,
+   "vent_kmh": 6.7,
+   "rafales_kmh": 14.3,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 95,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T06:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.01,
+   "temperature": 9.5,
+   "vent_kmh": 6.7,
+   "rafales_kmh": 15.0,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 98,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T07:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.04,
+   "temperature": 9.7,
+   "vent_kmh": 6.6,
+   "rafales_kmh": 15.1,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 100,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T08:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.04,
+   "temperature": 9.9,
+   "vent_kmh": 6.6,
+   "rafales_kmh": 15.2,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-02T09:00+01:00",
+   "condition": "mitigé",
+   "probas": {
+    "soleil": 0.32,
+    "mitigé": 0.57,
+    "couvert": 0.11,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.05,
+   "temperature": 10.1,
+   "vent_kmh": 6.6,
+   "rafales_kmh": 13.3,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-02T10:00+01:00",
+   "condition": "mitigé",
+   "probas": {
+    "soleil": 0.2,
+    "mitigé": 0.61,
+    "couvert": 0.19,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.04,
+   "temperature": 10.2,
+   "vent_kmh": 6.9,
+   "rafales_kmh": 13.5,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-02T11:00+01:00",
+   "condition": "mitigé",
+   "probas": {
+    "soleil": 0.16,
+    "mitigé": 0.67,
+    "couvert": 0.17,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.04,
+   "temperature": 10.8,
+   "vent_kmh": 6.9,
+   "rafales_kmh": 13.2,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-02T12:00+01:00",
+   "condition": "mitigé",
+   "probas": {
+    "soleil": 0.2,
+    "mitigé": 0.61,
+    "couvert": 0.19,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.04,
+   "temperature": 11.7,
+   "vent_kmh": 6.7,
+   "rafales_kmh": 13.4,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-02T13:00+01:00",
+   "condition": "mitigé",
+   "probas": {
+    "soleil": 0.14,
+    "mitigé": 0.62,
+    "couvert": 0.24,
+    "pluie": 0.0
+   },
+   "pluie_proba": 0.05,
+   "temperature": 12.4,
+   "vent_kmh": 6.4,
+   "rafales_kmh": 13.8,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-02T14:00+01:00",
+   "condition": "mitigé",
+   "probas": {
+    "soleil": 0.24,
+    "mitigé": 0.55,
+    "couvert": 0.21,
+    "pluie": 0.01
+   },
+   "pluie_proba": 0.06,
+   "temperature": 13.3,
+   "vent_kmh": 7.0,
+   "rafales_kmh": 14.5,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-02T15:00+01:00",
+   "condition": "mitigé",
+   "probas": {
+    "soleil": 0.28,
+    "mitigé": 0.59,
+    "couvert": 0.12,
+    "pluie": 0.01
+   },
+   "pluie_proba": 0.06,
+   "temperature": 13.3,
+   "vent_kmh": 7.4,
+   "rafales_kmh": 15.0,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-02T16:00+01:00",
+   "condition": "soleil",
+   "probas": null,
+   "pluie_proba": 0.04,
+   "temperature": 13.4,
+   "vent_kmh": 7.1,
+   "rafales_kmh": 15.1,
+   "precision_reduite": true
+  },
+  {
+   "heure": "2026-12-02T17:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.04,
+   "temperature": 12.5,
+   "vent_kmh": 6.7,
+   "rafales_kmh": 14.9,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 100,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T18:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.06,
+   "temperature": 11.8,
+   "vent_kmh": 6.3,
+   "rafales_kmh": 14.1,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 100,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T19:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.05,
+   "temperature": 11.2,
+   "vent_kmh": 6.3,
+   "rafales_kmh": 14.0,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 100,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T20:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.05,
+   "temperature": 11.0,
+   "vent_kmh": 6.3,
+   "rafales_kmh": 13.5,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 100,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T21:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.05,
+   "temperature": 10.6,
+   "vent_kmh": 6.1,
+   "rafales_kmh": 13.5,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 100,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  },
+  {
+   "heure": "2026-12-02T22:00+01:00",
+   "condition": "nuit",
+   "probas": null,
+   "pluie_proba": 0.05,
+   "temperature": 10.4,
+   "vent_kmh": 5.9,
+   "rafales_kmh": 13.5,
+   "precision_reduite": true,
+   "nebulosite": {
+    "pct": 100,
+    "mot": "couvert",
+    "modele": "ecmwf_ifs025",
+    "corrigee": false
+   }
+  }
+ ],
+ "jours": [
+  {
+   "date": "2026-11-25",
+   "matin": {
+    "condition": "couvert",
+    "temperature": 10.9,
+    "rafales_kmh": 19.5,
+    "passe": true,
+    "mesure": {
+     "ciel": true,
+     "station": false
+    }
+   },
+   "aprem": {
+    "condition": "mitigé",
+    "temperature": 13.7,
+    "rafales_kmh": 21.4,
+    "passe": true,
+    "mesure": {
+     "ciel": true,
+     "station": false
+    }
+   }
+  },
+  {
+   "date": "2026-11-26",
+   "matin": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 1.0,
+     "mitigé": 0.0,
+     "couvert": 0.0,
+     "pluie": 0.0
+    },
+    "temperature": 10.5,
+    "rafales_kmh": 31.9
+   },
+   "aprem": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 1.0,
+     "mitigé": 0.0,
+     "couvert": 0.0,
+     "pluie": 0.0
+    },
+    "temperature": 13.7,
+    "rafales_kmh": 47.2
+   }
+  },
+  {
+   "date": "2026-11-27",
+   "matin": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 1.0,
+     "mitigé": 0.0,
+     "couvert": 0.0,
+     "pluie": 0.0
+    },
+    "temperature": 9.7,
+    "rafales_kmh": 42.6
+   },
+   "aprem": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 1.0,
+     "mitigé": 0.0,
+     "couvert": 0.0,
+     "pluie": 0.0
+    },
+    "temperature": 13.1,
+    "rafales_kmh": 47.0
+   }
+  },
+  {
+   "date": "2026-11-28",
+   "matin": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 1.0,
+     "mitigé": 0.0,
+     "couvert": 0.0,
+     "pluie": 0.0
+    },
+    "temperature": 5.7,
+    "rafales_kmh": 12.6
+   },
+   "aprem": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 1.0,
+     "mitigé": 0.0,
+     "couvert": 0.0,
+     "pluie": 0.0
+    },
+    "temperature": 12.1,
+    "rafales_kmh": 21.0
+   }
+  },
+  {
+   "date": "2026-11-29",
+   "matin": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 0.58,
+     "mitigé": 0.4,
+     "couvert": 0.0,
+     "pluie": 0.01
+    },
+    "temperature": 8.7,
+    "rafales_kmh": 18.5
+   },
+   "aprem": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 0.73,
+     "mitigé": 0.25,
+     "couvert": 0.0,
+     "pluie": 0.02
+    },
+    "temperature": 13.6,
+    "rafales_kmh": 19.5
+   }
+  },
+  {
+   "date": "2026-11-30",
+   "matin": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 0.98,
+     "mitigé": 0.01,
+     "couvert": 0.0,
+     "pluie": 0.0
+    },
+    "temperature": 10.8,
+    "rafales_kmh": 15.2
+   },
+   "aprem": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 0.99,
+     "mitigé": 0.01,
+     "couvert": 0.0,
+     "pluie": 0.0
+    },
+    "temperature": 14.3,
+    "rafales_kmh": 18.0
+   }
+  },
+  {
+   "date": "2026-12-01",
+   "matin": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 0.95,
+     "mitigé": 0.05,
+     "couvert": 0.0,
+     "pluie": 0.0
+    },
+    "temperature": 9.7,
+    "rafales_kmh": 17.1
+   },
+   "aprem": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 0.98,
+     "mitigé": 0.02,
+     "couvert": 0.0,
+     "pluie": 0.0
+    },
+    "temperature": 13.5,
+    "rafales_kmh": 21.2
+   }
+  },
+  {
+   "date": "2026-12-02",
+   "matin": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 0.85,
+     "mitigé": 0.14,
+     "couvert": 0.01,
+     "pluie": 0.0
+    },
+    "temperature": 10.3,
+    "rafales_kmh": 28.5
+   },
+   "aprem": {
+    "condition": "soleil",
+    "probas": {
+     "soleil": 0.93,
+     "mitigé": 0.05,
+     "couvert": 0.01,
+     "pluie": 0.02
+    },
+    "temperature": 14.0,
+    "rafales_kmh": 24.8
+   }
+  }
+ ]
+}
