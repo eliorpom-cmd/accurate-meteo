@@ -21,8 +21,13 @@ Thanks for your interest. This is a small personal project: every change is revi
 - Results measured on the training data, or on a different period than the baseline.
 - New dependencies without a clear need.
 
+## Running the tests
+
+The unit tests of the pure functions of `score.py` use only the standard library (`unittest`) and need no network or data files. From the repository root, run `python -m unittest discover -s tests -v`. The same command runs in CI on every push and pull request (`.github/workflows/tests.yml`, Python 3.13).
+
 ## Checks before a pull request
 
+- `python -m unittest discover -s tests -v` passes.
 - `python prevoir.py out/prevision.json` runs without error.
 - If you touched training: rerun `figer.py` and include the updated `FIGE.md`.
 - No secrets, tokens or personal data in the diff.
